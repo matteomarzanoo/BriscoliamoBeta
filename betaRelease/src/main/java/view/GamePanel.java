@@ -1,19 +1,23 @@
 package view;
 
 import model.Card;
+import model.ImageManager;
 import model.Player;
 import org.example.Settings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 public abstract class GamePanel extends JPanel {
     protected Player player;
     protected boolean giocato;
+    protected BufferedImage background;
 
     public GamePanel(Player player) {
+        background = ImageManager.getGamePanelBackgroundScreen();
         this.player = player;
         setVisible(true);
         setFocusable(true);
@@ -53,7 +57,15 @@ public abstract class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (background != null) {
+            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+        }
         Graphics2D g2d = (Graphics2D) g;
+        
+        /**
+         * Debug
+         */
+        /*Graphics2D g2d = (Graphics2D) g;
         Color color1 = new Color(0x00, 0x64, 0x00);
         Color color2 = new Color(0x32, 0xCD, 0x32);
 
@@ -62,7 +74,7 @@ public abstract class GamePanel extends JPanel {
         RadialGradientPaint paint = new RadialGradientPaint(center, radius, new float[]{0f, 1f}, new Color[]{color2, color1});
 
         g2d.setPaint(paint);
-        g2d.fillRect(0, 0, Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT);
+        g2d.fillRect(0, 0, Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT);*/
 
         draw(g2d);
     }

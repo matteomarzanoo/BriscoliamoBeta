@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class ImageManager  {
     private static BufferedImage backgroundImage;
     private static BufferedImage endPanelImage;
-    private static BufferedImage loadingScreenImage;
+    private static BufferedImage gamePanelBackground;
     private static BufferedImage blurred;
 
     static {
@@ -18,8 +18,8 @@ public class ImageManager  {
             backgroundImage = createBlurredImage(backgroundImage, 50);
             blurred = createBlurredImage(backgroundImage, 100);
 
-            loadingScreenImage = ImageIO.read(new File("src/main/resources/images/menu.jpg"));
-            loadingScreenImage = createBlurredImage(loadingScreenImage, 50);
+            gamePanelBackground = ImageIO.read(new File("src/main/resources/images/table.jpg"));
+            gamePanelBackground = createBlurredImage(gamePanelBackground, 20);
 
             endPanelImage = ImageIO.read(new File("src/main/resources/images/t1bis.jpg"));
             endPanelImage = createBlurredImage(endPanelImage, 2);
@@ -29,12 +29,15 @@ public class ImageManager  {
     public static BufferedImage getBackgroundImage() {
         return backgroundImage; 
     }
+
     public static BufferedImage getBlurred() {
         return blurred; 
     }
-    public static BufferedImage getLoadingScreen() {
-        return loadingScreenImage;
+
+    public static BufferedImage getGamePanelBackgroundScreen() {
+        return gamePanelBackground;
     }
+    
     public static BufferedImage getEndPanelBackground() {
         return endPanelImage;
     }

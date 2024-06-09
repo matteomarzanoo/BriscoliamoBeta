@@ -16,6 +16,7 @@ public class BriscolaController extends KeyAdapter
     private GamePanelOffline gamePanelOffline;
     private MouseMotionListener  mouseMotionListener;
     private MouseListener mouseListener;
+
     private Card tmp, tmpBot;
     private Card draggedCard = null;
     private int dragOffsetX, dragOffsetY;
@@ -40,14 +41,22 @@ public class BriscolaController extends KeyAdapter
                             dragOffsetY = e.getY() - card.getY();
                             break;
                         }
-
                     }
-                }else{
-                    System.out.println("Controller:Non puoi giocare, non e' il tuo turno");
                 }
-
             }
 
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(game.isMyTurn()) {
+                    for (int i = 0; i < game.getHandPlayer().size(); i++) {
+                        Card card = game.getHandPlayer().get(i);
+                        if (card.contains(e.getPoint())) {
+                            playCard(i);
+
+                        }
+                    }
+                }
+            }
             @Override
             public void mouseReleased(MouseEvent e) {
 
@@ -112,20 +121,19 @@ public class BriscolaController extends KeyAdapter
             new Sound().playClickedButton();
             int choice = JOptionPane.showConfirmDialog(null, "Do you want to go back to the menu?", "Confirm", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
-                        Sound.pause(Sound.gameOST);
-                        Sound.restart(Sound.menuOST);
-                        MenuPanel.getInstance().home();
-                        game.setPaused();
+                Sound.pause(Sound.gameOST);
+                Sound.restart(Sound.menuOST);
+                MenuPanel.getInstance().home();
+                game.setPaused();
             }
         }
 
-        if (!game.isGameOver()) {
-            if(game.isMyTurn()) {
-                switch ((e.getKeyCode())) {
-                    case KeyEvent.VK_1 -> playCard(0);
-                    case KeyEvent.VK_2 -> playCard(1);
-                    case KeyEvent.VK_3 -> playCard(2);
-                }
+        if (!game.isGameOver() && game.isMyTurn()) {
+
+            switch ((e.getKeyCode())) {
+                case KeyEvent.VK_1 -> playCard(0);
+                case KeyEvent.VK_2 -> playCard(1);
+                case KeyEvent.VK_3 -> playCard(2);
             }
         }
     }

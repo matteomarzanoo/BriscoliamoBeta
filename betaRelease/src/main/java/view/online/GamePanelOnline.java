@@ -37,7 +37,7 @@ public class GamePanelOnline extends JPanel
             drawSecondPlayerHand(g2d);
             drawBriscolaAndDeck(g2d);
             drawCardsOnTheGround(g2d);
-            drawLine(g2d);
+            //drawArea(g2d);
             drawPlayerHand(g2d);
             updatePlayerCardPositions();
         }
@@ -52,7 +52,7 @@ public class GamePanelOnline extends JPanel
         for (int i = 0; i < game.getLengthHandOpponent(); i++)
         {
             Image cardImage = loadCardImage("/carte/Dorso3.png");
-            g2d.drawImage(cardImage, 25 + (25 + 100) * i, 25, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+            g2d.drawImage(cardImage, 150 + 125 * i, 25, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
         }
     }
     public void updatePlayerCardPositions() {
@@ -60,7 +60,7 @@ public class GamePanelOnline extends JPanel
 
         for (int i = 0; i < player.getHandPlayer().size(); i++) {
             Card card = player.getHandPlayer().get(i);
-            int xPosition = 25 + (Settings.CARD_WIDTH + 25) * i;  // Calcola la posizione X delle carte
+            int xPosition = 150 + 125 * i;  // Calcola la posizione X delle carte
             card.setX(xPosition);  // Aggiorna la posizione X della carta
             card.setY(yPosition);  // Aggiorna la posizione Y della carta
         }
@@ -73,7 +73,7 @@ public class GamePanelOnline extends JPanel
             for (int i = 0; i < 3; i++)
             {
                 Image cardImage = loadCardImage("/carte/Dorso3.png");
-                g2d.drawImage(cardImage, 25 + 125 * i, 395, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                g2d.drawImage(cardImage, 150 + 125 * i, 395, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
             }
         }
         else
@@ -82,7 +82,32 @@ public class GamePanelOnline extends JPanel
             {
                 Card card = player.getHandPlayer().get(i);
                 Image cardImage = loadCardImage(card.getCardPath());
-                g2d.drawImage(cardImage, card.getX(), card.getY(), Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                if (card.isOver()) {
+                    int newX = card.getX() - 8;
+                    int newY = card.getY() - 10;
+                    int newCardWidth = (int) (Settings.CARD_WIDTH * 1.15);
+                    int newCardHeight = (int) (Settings.CARD_HEIGHT * 1.15);
+                    g2d.drawImage(cardImage, newX, newY, newCardWidth, newCardHeight, null);
+                }
+                //Gestisco tutti i casi in cui le carte si trovano sui bordi del frame per non poterle portare fuori dal pannello
+                //Angolo alto a sinistra
+                else if (card.getX()<0 && card.getY()<0){g2d.drawImage(cardImage, 0, 0, Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
+                //Anglo alto a destra
+                else if (card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15 && card.getY() <0) {g2d.drawImage(cardImage, Settings.FRAME_WIDTH- Settings.CARD_WIDTH - 15, 0, Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
+                //Angolo basso a sinistra
+                else if (card.getX() <0 && card.getY() > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT-35 ) {g2d.drawImage(cardImage, 0, Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35, Settings.CARD_WIDTH , Settings.CARD_HEIGHT , null);}
+                //Angolo basso a destra
+                else if(card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15 && card.getY() > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35){g2d.drawImage(cardImage, Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15, Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35 , Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
+                //Bordo Superiore
+                else if(card.getY() < 0){g2d.drawImage(cardImage, card.getX(), 0, Settings.CARD_WIDTH , Settings.CARD_HEIGHT , null);}
+                //Bordo Sinistro
+                else if (card.getX() < 0){g2d.drawImage(cardImage, 0, card.getY(), Settings.CARD_WIDTH , Settings.CARD_HEIGHT , null);}
+                //Bordo Destro
+                else if(card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH -15 ){g2d.drawImage(cardImage, Settings.FRAME_WIDTH - Settings.CARD_WIDTH -15, card.getY(), Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
+                //Bordo Inferiore
+                else if (card.getY()  > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35 ){g2d.drawImage(cardImage, card.getX(), Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35 , Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
+                //Tutti i casi in cui la carta si trova all'interno del pannello
+                else {g2d.drawImage(cardImage, card.getX(), card.getY(), Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
             }
             giocato = true;
         }
@@ -94,12 +119,12 @@ public class GamePanelOnline extends JPanel
         {
             Image bri = loadCardImage(game.getBriscola().getCardPath());
             Graphics2D g2d = (Graphics2D) g.create();
-            g2d.rotate(Math.toRadians(90), Settings.CARD_WIDTH, Settings.CARD_HEIGHT);
-            g2d.drawImage(bri, 160, -275, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+            g2d.rotate(Math.toRadians(270), (int)(Settings.CARD_WIDTH /2), (int) (Settings.CARD_HEIGHT/2));
+            g2d.drawImage(bri, -180, 580, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
             g2d.dispose();
 
             Image dorsoBriscola = loadCardImage("/carte/Dorso3.png");
-            g.drawImage(dorsoBriscola, 475, 180, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+            g.drawImage(dorsoBriscola, 650, 180, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
         }
     }
 
@@ -111,17 +136,18 @@ public class GamePanelOnline extends JPanel
             {
                 Card card = game.getCardsOnTheGround().get(i);
                 Image cardImage = loadCardImage(card.getCardPath());
-                g.drawImage(cardImage, 75+ 125 * i, 200, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                g.drawImage(cardImage, 200 + 150 * i, 204, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
             }
         }
     }
 
-    private void drawLine(Graphics2D g2d){
-        g2d.drawLine(Settings.PLAYING_AREA_LEFT_BORDER,Settings.PLAYING_AREA_UP_BORDER-1, Settings.PLAYING_AREA_LEFT_BORDER, Settings.PLAYING_AREA_DOWN_BORDER-1 );
-        g2d.drawLine(Settings.PLAYING_AREA_RIGHT_BORDER,Settings.PLAYING_AREA_UP_BORDER-1, Settings.PLAYING_AREA_RIGHT_BORDER, Settings.PLAYING_AREA_DOWN_BORDER-1 );
+    private void drawArea(Graphics2D g2d){
+        int x = Settings.PLAYING_AREA_LEFT_BORDER;
+        int y = Settings.PLAYING_AREA_UP_BORDER;
 
-        g2d.drawLine(Settings.PLAYING_AREA_LEFT_BORDER ,Settings.PLAYING_AREA_UP_BORDER-1, Settings.PLAYING_AREA_RIGHT_BORDER , Settings.PLAYING_AREA_UP_BORDER-1 );
-        g2d.drawLine(Settings.PLAYING_AREA_LEFT_BORDER,Settings.PLAYING_AREA_DOWN_BORDER-1, Settings.PLAYING_AREA_RIGHT_BORDER, Settings.PLAYING_AREA_DOWN_BORDER-1 );
+        int width = Settings.PLAYING_AREA_RIGHT_BORDER - Settings.PLAYING_AREA_LEFT_BORDER;
+        int height = Settings.PLAYING_AREA_DOWN_BORDER - Settings.PLAYING_AREA_UP_BORDER;
+        g2d.drawRect(x, y, width, height);
     }
 
     private Image loadCardImage(String path)
@@ -178,13 +204,9 @@ public class GamePanelOnline extends JPanel
         Color color1 =  new Color(0x00, 0x64, 0x00); // Colore più scuro
         Color color2 =  new Color(0x32, 0xCD, 0x32); // Colore più chiaro
 
-        // Imposta il centro della sfumatura
-        Point2D center = new Point2D.Float(Settings.FRAME_WIDTH / 2.0f, Settings.FRAME_HEIGHT/ 2.0f);
-
-        // Il raggio della sfumatura
+        Point2D center = new Point2D.Float(Settings.FRAME_WIDTH / 2.0f - 80, Settings.FRAME_HEIGHT/ 2.0f);
         float radius = Math.min(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT)/2.0f;
 
-        // Crea la sfumatura radiale
         RadialGradientPaint paint = new RadialGradientPaint(center, radius, new float[]{0f, 1f}, new Color[]{color2, color1});
 
         g.setPaint(paint);

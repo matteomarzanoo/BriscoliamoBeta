@@ -9,9 +9,9 @@ public interface Settings {
 
     int END_WIDTH = 350;
     int END_HEIGHT = 250;
-    
-    int PLAYING_AREA_LEFT_BORDER = 55;
-    int PLAYING_AREA_RIGHT_BORDER = 355;
+
+    int PLAYING_AREA_LEFT_BORDER = 100;
+    int PLAYING_AREA_RIGHT_BORDER = 550;
     int PLAYING_AREA_UP_BORDER = 150;
     int PLAYING_AREA_DOWN_BORDER = 370;
 }

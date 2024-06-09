@@ -31,17 +31,12 @@ public class BriscolaControllerOnline extends KeyAdapter
             public void mousePressed(MouseEvent e) {
                 for (int i = 0; i < game.getHandPlayer().size(); i++) {
                     Card card = game.getHandPlayer().get(i);
-//                    System.out.println("le coordinate del mouse sono: "+ e.getX() + ", "+ e.getY()+ "quelle della carta sono "+ card.getX() + ", "+ card.getY());
-
                     if (card.contains(e.getPoint())) {
-                        //System.out.println("Il mouse si trova sopra la carta "+ i);
-
                         draggedCard = card;
                         draggedCardIndex = i;
 
                         dragOffsetX = e.getX() - card.getX();
                         dragOffsetY = e.getY() - card.getY();
-                        //System.out.println("Sto premendo la carta " + i +" e la posizione x della carta è: " + card.getX() + " e la posizione y è: "+ card.getY());
                         break;
                     }
                 }
@@ -50,33 +45,35 @@ public class BriscolaControllerOnline extends KeyAdapter
             @Override
             public void mouseReleased(MouseEvent e) {
                 // Imposta le nuove coordinate della carta dopo aver trascinato
-                draggedCard.setX(e.getX() - dragOffsetX);
-                draggedCard.setY(e.getY() - dragOffsetY);
-                if (draggedCard.inPlayArea()){
-                    game.clearCardsOnTheGround();
-                    playCard(draggedCardIndex);
-                }else {
-                    gamePanel.updatePlayerCardPositions();
-                }
-
-                // Resetta le variabili di trascinamento
-                draggedCard = null;
-                dragOffsetX = 0;
-                dragOffsetY = 0;
-                draggedCardIndex = -1;
-                gamePanel.repaint();
+                try {
+                    draggedCard.setX(e.getX() - dragOffsetX);
+                    draggedCard.setY(e.getY() - dragOffsetY);
+                    if (draggedCard.inPlayArea()) {
+                        playCard(draggedCardIndex);
+                    } else {
+                        gamePanel.updatePlayerCardPositions();
+                    }
+                    draggedCard = null;
+                    dragOffsetX = 0;
+                    dragOffsetY = 0;
+                    draggedCardIndex = -1;
+                    gamePanel.repaint();
+                }catch (NullPointerException exception){}
             }
         });
 
         this.mouseMotionListener = (new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (draggedCard != null) {
-                    draggedCard.setX(e.getX() - dragOffsetX);
-                    draggedCard.setY(e.getY() - dragOffsetY);
+                try {
+                    if (draggedCard != null) {
+                        draggedCard.setOver(false);
 
-                    gamePanel.repaint();
-                }
+                        draggedCard.setX(e.getX() - dragOffsetX);
+                        draggedCard.setY(e.getY() - dragOffsetY);
+                        gamePanel.repaint();
+                    }
+                }catch(NullPointerException exception){}
             }
 
             @Override

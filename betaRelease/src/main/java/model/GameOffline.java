@@ -18,9 +18,9 @@ public class GameOffline extends Game {
     private Map<Integer, Integer> valuesMap;
     private boolean imWinner;
     private int handWinner;
-    private boolean alrealyCardPlayed;
     private boolean isOver = false;
     private PlayerScore score;
+    private int currentScorePlayer = -1;
     private boolean paused = false;
 
     private GameOffline() {
@@ -171,29 +171,35 @@ public class GameOffline extends Game {
 
         if (suitPlayer.equals(suitBot)) {
             if (valuesMap.get(playedCardPlayer.getValue()) > valuesMap.get(playedCardBot.getValue())) {
-                scorePlayer += valuesMap.get(playedCardPlayer.getValue()) + valuesMap.get(playedCardBot.getValue());
+                currentScorePlayer = valuesMap.get(playedCardPlayer.getValue()) + valuesMap.get(playedCardBot.getValue());
+                scorePlayer += currentScorePlayer;
                 isFirstPlayer = true;
                 handWinner = 1;
             } else {
                 scoreBot += valuesMap.get(playedCardBot.getValue()) + valuesMap.get(playedCardPlayer.getValue());
+                currentScorePlayer = -1;
                 isFirstPlayer = false;
                 handWinner = 0;
             }
         } else if (suitPlayer.equals(briscola.getSuit())) {
-            scorePlayer += valuesMap.get(playedCardPlayer.getValue()) + valuesMap.get(playedCardBot.getValue());
+            currentScorePlayer = valuesMap.get(playedCardPlayer.getValue()) + valuesMap.get(playedCardBot.getValue());
+            scorePlayer += currentScorePlayer;
             isFirstPlayer = true;
             handWinner = 1;
         } else if (suitBot.equals(briscola.getSuit())) {
             scoreBot += valuesMap.get(playedCardBot.getValue()) + valuesMap.get(playedCardPlayer.getValue());
+            currentScorePlayer = -1;
             isFirstPlayer = false;
             handWinner = 0;
         } else {
             if (isFirstPlayer) {
-                scorePlayer += valuesMap.get(playedCardPlayer.getValue()) + valuesMap.get(playedCardBot.getValue());
+                currentScorePlayer = valuesMap.get(playedCardPlayer.getValue()) + valuesMap.get(playedCardBot.getValue());
+                scorePlayer += currentScorePlayer;
                 isFirstPlayer = true;
                 handWinner = 1;
             } else {
                 scoreBot += valuesMap.get(playedCardBot.getValue()) + valuesMap.get(playedCardPlayer.getValue());
+                currentScorePlayer = -1;
                 isFirstPlayer = false;
                 handWinner = 0;
             }
@@ -212,7 +218,6 @@ public class GameOffline extends Game {
     }
 
     public void changeTurn(){
-        alrealyCardPlayed = false;
         myTurn = !myTurn;
     }
 
@@ -268,11 +273,8 @@ public class GameOffline extends Game {
     public boolean getImWinner() { return imWinner; }
     public ArrayList<Card> getHandBot() {return this.bot.getHandBot();};
 
-    public boolean isAlrealyCardPlayed() {
-        return alrealyCardPlayed;
-    }
+    public int getCurrentScorePlayer() {return currentScorePlayer;}
 
-    public void setAlrealyCardPlayed(boolean alrealyCardPlayed) {
-        this.alrealyCardPlayed = alrealyCardPlayed;
+    public void setCurrentScorePlayer(int currentScorePlayer) {this.currentScorePlayer = currentScorePlayer;
     }
 }

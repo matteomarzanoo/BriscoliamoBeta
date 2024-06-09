@@ -148,7 +148,10 @@ public class BriscolaController extends KeyAdapter
             gamePanelOffline.repaint();
 
             if (game.getCardsOnTheGround().size() == 2) {
+                game.attributePoints();
+                gamePanelOffline.repaint();
                 aspetta();
+
             }
             if (!game.isMyTurn()) {
                 playBot();
@@ -161,6 +164,9 @@ public class BriscolaController extends KeyAdapter
             gamePanelOffline.repaint();
 
             if (game.getCardsOnTheGround().size() == 2) {
+                game.attributePoints();
+                gamePanelOffline.repaint();
+
                 aspetta();
             }
         }
@@ -171,11 +177,11 @@ public class BriscolaController extends KeyAdapter
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                game.attributePoints();
                 game.addCard(game.getHandBot());
                 game.addCard(game.getHandPlayer());
                 game.clearTmpArray();
                 gamePanelOffline.updatePlayerCardPositions();
+                game.setCurrentScorePlayer(-1);
                 gamePanelOffline.repaint();
                 if (!game.isMyTurn()) {
                     playBot();

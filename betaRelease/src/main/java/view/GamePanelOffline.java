@@ -30,6 +30,9 @@ public class GamePanelOffline extends GamePanel {
             drawScores(g2d);
             drawPlayerHand(g2d);
             updatePlayerCardPositions();
+           if (gameOffline.getCurrentScorePlayer() > 0){
+               drawRectangle(g2d);
+           }
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Processo fallito");
@@ -111,6 +114,33 @@ public class GamePanelOffline extends GamePanel {
                 g.drawImage(cardImage, 200 + 150 * i, 204, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
             }
         }
+    }
+
+    private void drawRectangle(Graphics2D g2d){
+        int x = (int) (Settings.FRAME_WIDTH - 250) / 2;
+        int y = (int) (Settings.FRAME_HEIGHT - 50) / 2;
+        int width = 100;
+        int height = 50;
+        int arcWidth = 50;
+        int arcHeight = 50;
+        int borderWidth = 5;
+        String currentScorePlayer = "+ " + GameOffline.getInstance().getCurrentScorePlayer() + " punti";
+
+        g2d.setColor(Color.WHITE);
+        g2d.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
+
+        g2d.setColor(Color.GREEN);
+        g2d.setStroke(new BasicStroke(borderWidth));
+        g2d.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+
+
+        g2d.setFont(new Font("Arial", Font.BOLD, 16));
+        FontMetrics fm = g2d.getFontMetrics();
+        int xTesto = (Settings.FRAME_WIDTH - fm.stringWidth(currentScorePlayer) - 150) / 2;
+        int yTesto = (Settings.FRAME_HEIGHT - fm.getHeight())/ 2 + fm.getAscent();
+
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(currentScorePlayer, xTesto, yTesto);
     }
 
     public static void setPaused() { paused = true; }

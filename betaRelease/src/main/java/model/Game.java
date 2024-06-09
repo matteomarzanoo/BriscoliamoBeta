@@ -32,8 +32,4 @@ public abstract class Game {
     public void setMyTurn(boolean myTurn) { this.myTurn = myTurn; }
     public boolean isFirstPlayer() { return isFirstPlayer; }
     public void setFirstPlayer(boolean isFirstPlayer) { this.isFirstPlayer = isFirstPlayer; }
-
-    public void setBriscola(Card card) {
-
-    }
 }

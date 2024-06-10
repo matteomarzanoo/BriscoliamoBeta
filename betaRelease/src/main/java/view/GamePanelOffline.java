@@ -35,10 +35,8 @@ public class GamePanelOffline extends GamePanel {
            if (gameOffline.getCurrentScorePlayer() > 0){
                drawRectangle(g2d);
            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Processo fallito");
-        }
+        } catch (Exception e) {}
+
     }
 
     private void drawBotHand(Graphics2D g2d) {
@@ -95,15 +93,19 @@ public class GamePanelOffline extends GamePanel {
     private void drawScores(Graphics2D g2d) {
         g2d.setColor(gameOffline.getImWinner() ? Color.BLACK : Color.WHITE);
         if (!gameOffline.isGameOver()) {
+            //g2d.setFont(new Font("Arial", Font.BOLD, 16));
             g2d.setFont(Fonts.getGamePanel());
-            g2d.drawString(bot.getBotName() + " : " + gameOffline.getScoreBot(), 600, 100);
-            g2d.drawString(player.getName() + " : " + gameOffline.getScorePlayer(), 600, 80);
-            g2d.drawString("" + gameOffline.getDeck().size(), 700, 360);
+            g2d.drawString(bot.getBotName() + " : " + gameOffline.getScoreBot(), 600, 450);
+            g2d.drawString(player.getName() + " : " + gameOffline.getScorePlayer(), 600, 480);
+
+            if(! gameOffline.getDeck().isEmpty()) {
+                g2d.drawString("" + gameOffline.getDeck().size(), 700, 360);
+            }
 
             if(gameOffline.isMyTurn()){
-                g2d.drawString("E' il tuo turno", 600, 40);
+                g2d.drawString("It's your turn", 600, 40);
             }else{
-                g2d.drawString("E' il turno di"+ bot.getBotName(), 600, 40);
+                g2d.drawString("It's "+ bot.getBotName() + " turn", 600, 40);
             }
         }
     }
@@ -135,10 +137,9 @@ public class GamePanelOffline extends GamePanel {
         g2d.setStroke(new BasicStroke(borderWidth));
         g2d.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
 
-
         g2d.setFont(new Font("Arial", Font.BOLD, 16));
         FontMetrics fm = g2d.getFontMetrics();
-        int xTesto = (Settings.FRAME_WIDTH - fm.stringWidth(currentScorePlayer) - 150) / 2; //-150 per rimetterla al centro delle carte giocate
+        int xTesto = (Settings.FRAME_WIDTH - fm.stringWidth(currentScorePlayer) - 150) / 2; //-150 per rimetterla al centro tra le carte giocate
         int yTesto = (Settings.FRAME_HEIGHT - fm.getHeight())/ 2 + fm.getAscent();
 
         g2d.setColor(Color.BLACK);
@@ -180,5 +181,4 @@ public class GamePanelOffline extends GamePanel {
 
     public BriscolaController getController() { return this.controller; }
 
-    public Point getPositionCard(Card card) { return card.getPointCard(); }
 }

@@ -16,14 +16,12 @@ import javax.swing.JOptionPane;
 
 public class BriscolaController extends KeyAdapter
 {
-    private GameOffline game;
-    private GamePanelOffline gamePanelOffline;
+    private final GameOffline game;
+    private final GamePanelOffline gamePanelOffline;
     private MouseMotionListener  mouseMotionListener;
     private MouseListener mouseListener;
     private MenuPanel menuPanel;
     private Sound sound;
-
-    private Card tmp, tmpBot;
     private Card draggedCard = null;
     private int dragOffsetX, dragOffsetY;
     private int draggedCardIndex = -1;
@@ -99,9 +97,6 @@ public class BriscolaController extends KeyAdapter
                     }
                 }catch(NullPointerException exception){}
             }
-
-
-
             @Override
             public void mouseMoved(MouseEvent e) {
                 for (int i = 0; i<game.getHandPlayer().size(); i++) {
@@ -128,7 +123,7 @@ public class BriscolaController extends KeyAdapter
         if (e.getKeyCode() ==  KeyEvent.VK_B) { 
             try {
                 sound.sfx("hitted_button.wav");
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) { e1.printStackTrace(); }
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {}
             int choice = JOptionPane.showConfirmDialog(null, "Do you want to go back to the menu?", "Confirm", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
                 sound.pauseGameOST();
@@ -154,8 +149,8 @@ public class BriscolaController extends KeyAdapter
     
     private void playCard(int index) {
         if ((game.getHandPlayer().size() >= index) && game.isMyTurn() && (game.getCardsOnTheGround().size() < 2)) {
-            game.playedCardPlayer(index);
             gamePanelOffline.repaint();
+            game.playedCardPlayer(index);
 
             if (game.getCardsOnTheGround().size() == 2) {
                 game.attributePoints();
@@ -170,8 +165,8 @@ public class BriscolaController extends KeyAdapter
     }
     private void playBot(){
         while (!game.isMyTurn() && game.getCardsOnTheGround().size() < 2) {
-            game.playedCardBot();
             gamePanelOffline.repaint();
+            game.playedCardBot();
 
             if (game.getCardsOnTheGround().size() == 2) {
                 game.attributePoints();
@@ -192,6 +187,7 @@ public class BriscolaController extends KeyAdapter
                 game.clearTmpArray();
                 gamePanelOffline.updatePlayerCardPositions();
                 game.setCurrentScorePlayer(-1);
+
                 gamePanelOffline.repaint();
                 if (!game.isMyTurn()) {
                     playBot();

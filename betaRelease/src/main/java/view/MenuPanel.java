@@ -84,6 +84,7 @@ public class MenuPanel extends JPanel
             case "Exit" -> exit();
             case "←" -> home();
             case "Change Username" -> settingsPanel.UsernameDialog();
+            case "Change Settings" -> new ChangeServerConfig();
             case "Home" -> {
                 sound.pauseGameOST(); 
                 home();

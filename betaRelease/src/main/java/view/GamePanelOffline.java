@@ -92,7 +92,6 @@ public class GamePanelOffline extends GamePanel {
     private void drawScores(Graphics2D g2d) {
         g2d.setColor(gameOffline.getImWinner() ? Color.BLACK : Color.WHITE);
         if (!gameOffline.isGameOver()) {
-            //g2d.setFont(new Font("Arial", Font.BOLD, 16));
             g2d.setFont(Fonts.getGamePanel());
             g2d.drawString(bot.getBotName() + " : " + gameOffline.getScoreBot(), 600, 450);
             g2d.drawString(player.getName() + " : " + gameOffline.getScorePlayer(), 600, 480);
@@ -102,9 +101,9 @@ public class GamePanelOffline extends GamePanel {
             }
 
             if(gameOffline.isMyTurn()){
-                g2d.drawString("It's your turn", 600, 40);
+                g2d.drawString("It's your turn", 570, 40);
             }else{
-                g2d.drawString("It's "+ bot.getBotName() + " turn", 600, 40);
+                g2d.drawString("It's "+ bot.getBotName() + " turn", 570, 40);
             }
         }
     }
@@ -172,8 +171,6 @@ public class GamePanelOffline extends GamePanel {
     public void setController(BriscolaController controller) {
         this.controller = controller;
         addKeyListener(this.controller);
-        addMouseMotionListener(controller.getMouseMotionListener());
-        addMouseListener(controller.getMouseListener());
         this.setFocusable(true);
         this.requestFocus();
     }

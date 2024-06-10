@@ -109,6 +109,9 @@ public class BriscolaController extends KeyAdapter
                 gamePanelOffline.repaint();
             }
         });
+
+        gamePanelOffline.addMouseListener(this.mouseListener);
+        gamePanelOffline.addMouseMotionListener(this.mouseMotionListener);
     }
 
 
@@ -147,7 +150,7 @@ public class BriscolaController extends KeyAdapter
     public MouseListener getMouseListener(){return this.mouseListener;}
     
     private void playCard(int index) {
-        if ((game.getHandPlayer().size() >= index) && game.isMyTurn() && (game.getCardsOnTheGround().size() < 2)) {
+        if ((game.getHandPlayer().size() > index) && game.isMyTurn() && (game.getCardsOnTheGround().size() < 2)) {
             gamePanelOffline.repaint();
             game.playedCardPlayer(index);
             try {

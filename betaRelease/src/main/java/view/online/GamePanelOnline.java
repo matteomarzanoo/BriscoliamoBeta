@@ -81,6 +81,7 @@ public class GamePanelOnline extends JPanel
             {
                 Card card = player.getHandPlayer().get(i);
                 Image cardImage = loadCardImage(card.getCardPath());
+
                 if (card.isOver()) {
                     int newX = card.getX() - 8;
                     int newY = card.getY() - 10;

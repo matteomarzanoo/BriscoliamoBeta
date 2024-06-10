@@ -56,11 +56,23 @@ public class BriscolaControllerOnline extends KeyAdapter
             }
 
             @Override
+            public void mouseClicked(MouseEvent e) {
+                if(game.isMyTurn()) {
+                    for (int i = 0; i < game.getHandPlayer().size(); i++) {
+                        Card card = game.getHandPlayer().get(i);
+                        if (card.contains(e.getPoint())) {
+                            playCard(i);
+                        }
+                    }
+                }
+            }
+
+            @Override
             public void mouseReleased(MouseEvent e) {
                 try {
                     draggedCard.setX(e.getX() - dragOffsetX);
                     draggedCard.setY(e.getY() - dragOffsetY);
-                    if (draggedCard.inPlayArea()) {
+                    if (draggedCard.inPlayArea() && game.isMyTurn()) {
                         playCard(draggedCardIndex);
                     } else {
                         gamePanel.updatePlayerCardPositions();
@@ -89,7 +101,18 @@ public class BriscolaControllerOnline extends KeyAdapter
             }
 
             @Override
-            public void mouseMoved(MouseEvent e) {}
+            public void mouseMoved(MouseEvent e)  {
+                    for (int i = 0; i<game.getHandPlayer().size(); i++) {
+                        Card card = game.getHandPlayer().get(i);
+                        if (card.contains(e.getPoint())) {
+                            card.setOver(true);
+                        } else {
+                            card.setOver(false);
+                        }
+                    }
+                    gamePanel.repaint();
+                }
+
         });
         gamePanel.addMouseListener(this.mouseListener);
         gamePanel.addMouseMotionListener(this.mouseMotionListener);

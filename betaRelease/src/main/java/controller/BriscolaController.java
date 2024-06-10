@@ -152,7 +152,7 @@ public class BriscolaController extends KeyAdapter
             gamePanelOffline.repaint();
             game.playedCardPlayer(index);
             try {
-                sound.sfx("cardplayed.wav");
+                sound.sfx("played_card.wav");
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {}
 
             if (game.getCardsOnTheGround().size() == 2) {
@@ -171,7 +171,7 @@ public class BriscolaController extends KeyAdapter
             gamePanelOffline.repaint();
             game.playedCardBot();
             try {
-                sound.sfx("cardplayed.wav");
+                sound.sfx("played_card.wav");
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {}
 
             if (game.getCardsOnTheGround().size() == 2) {

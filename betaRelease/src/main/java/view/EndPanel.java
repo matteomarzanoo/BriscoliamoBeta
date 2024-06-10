@@ -150,7 +150,7 @@ public class EndPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (background != null) {
-            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);//qui andiamo a disegnare l'immagine di sfondo
+            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         }
         Graphics2D g2d = (Graphics2D) g;
         g.setColor(Color.WHITE);

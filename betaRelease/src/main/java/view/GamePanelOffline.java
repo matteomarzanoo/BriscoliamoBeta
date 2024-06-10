@@ -12,13 +12,15 @@ public class GamePanelOffline extends GamePanel {
     private GameOffline gameOffline;
     private Bot bot;
     private EndPanel endPanel;
-    private static boolean paused;
+    private Sound sound;
 
     public GamePanelOffline() {
         super(GameOffline.getInstance().getPlayer());
         controller = new BriscolaController(this);
         gameOffline = GameOffline.getInstance();
         bot = gameOffline.getBot();
+        sound = Sound.getInstance();
+        checkPause();
     }
 
     @Override
@@ -143,16 +145,15 @@ public class GamePanelOffline extends GamePanel {
         g2d.drawString(currentScorePlayer, xTesto, yTesto);
     }
 
-    public static void setPaused() { paused = true; }
-
     @Override
     protected void checkPause() {
-        if (paused) {
+        if (gameOffline.getPaused()) {
             int choice = JOptionPane.showConfirmDialog(null, "Do you want to resume the game?", "Confirm", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.NO_OPTION) {
                 GameOffline.getInstance().reset();
-                paused = false;
-                Sound.restart(Sound.gameOST);
+                sound.resetGameOST();
+            } else if (choice == JOptionPane.YES_OPTION) {
+                sound.gameOST();
             }
         }
     }

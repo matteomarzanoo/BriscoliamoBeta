@@ -1,11 +1,18 @@
 package controller.online;
 
 import model.Card;
+import model.Sound;
 import model.online.GameOnline;
+import model.scores.OnlineScore;
 import model.online.Client;
+import view.MenuPanel;
 import view.online.GamePanelOnline;
 
 import java.awt.event.*;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 public class BriscolaControllerOnline extends KeyAdapter
@@ -19,12 +26,18 @@ public class BriscolaControllerOnline extends KeyAdapter
     private Card draggedCard = null;
     private int dragOffsetX, dragOffsetY;
     private int draggedCardIndex = -1;
+    private MenuPanel menuPanel;
+    private Sound sound;
+    private OnlineScore onlineScore;
 
     public BriscolaControllerOnline(GamePanelOnline gamePanel)
     {
         this.gamePanel = gamePanel;
         this.game = GameOnline.getInstance();
         this.client = Client.getInstance();
+        this.menuPanel = MenuPanel.getInstance();
+        this.sound = Sound.getInstance();
+        this.onlineScore = OnlineScore.getInstance();
 
         this.mouseListener = (new MouseAdapter() {
             @Override
@@ -88,11 +101,22 @@ public class BriscolaControllerOnline extends KeyAdapter
     {
         game.getCardsOnTheGround().clear();
 
-        if (e.getKeyCode() == KeyEvent.VK_Q)
-        {
-            int choice = JOptionPane.showConfirmDialog(null, "Do you want to close Briscoliamo?", "Confirm", JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) { System.exit(0); }
-            else { if (choice == JOptionPane.NO_OPTION) {  } }
+        if (e.getKeyCode() == KeyEvent.VK_Q) {
+            menuPanel.exit();
+        }
+
+        if (e.getKeyCode() ==  KeyEvent.VK_B) { 
+            try {
+                sound.sfx("hitted_button.wav");
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) { e1.printStackTrace(); }
+            int choice = JOptionPane.showConfirmDialog(null, "Do you want to go back to the menu? The match will be cancelled and you will LOSE.", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                onlineScore.addLost();
+                game.reset();
+                sound.pauseGameOST();
+                menuPanel.home();
+                sound.resetMenuOST();
+            }
         }
 
         if (game.isMyTurn())

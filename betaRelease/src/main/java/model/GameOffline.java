@@ -2,7 +2,10 @@ package model;
 
 import org.example.Settings;
 
+import model.scores.OfflineScore;
+
 import java.util.*;
+import java.awt.Color;
 import java.awt.Point;
 
 public class GameOffline extends Game {
@@ -19,7 +22,7 @@ public class GameOffline extends Game {
     private boolean imWinner;
     private int handWinner;
     private boolean isOver = false;
-    private PlayerScore score;
+    private OfflineScore offlineScore;
     private int currentScorePlayer = -1;
     private boolean paused = false;
 
@@ -27,7 +30,7 @@ public class GameOffline extends Game {
         deck = new ArrayList<>();
         player = new Player();
         bot = new Bot();
-        score = PlayerScore.getInstance();
+        offlineScore = OfflineScore.getInstance();
         scoreBot = 0;
         scorePlayer = 0;
 
@@ -125,7 +128,6 @@ public class GameOffline extends Game {
     public Card playedCardPlayer(int indexCurrentCardPlayer) {
         if(myTurn){
             System.out.println("dimensione carte sul tavolo : " + cardsOnTheGround.size());
-            //aggiungiamo la carta giocata all'array  temporaneo delle 2 carte sul tavolo e ritorniamo la stessa carta
             if(cardsOnTheGround.size() != 2)
                 cardsOnTheGround.add(player.getHandPlayer().get(indexCurrentCardPlayer));
             changeTurn();
@@ -145,7 +147,6 @@ public class GameOffline extends Game {
             return currentCard;
         }
         else{
-            System.out.println("NON TOCCA AL BOT GIOCARE");
             return null;
         }
     }
@@ -225,15 +226,12 @@ public class GameOffline extends Game {
         isOver = true;
         if (scorePlayer > scoreBot) {
             imWinner = true;
-            score.addWin();
-            System.out.println("SEI TU IL VINCITORE!!");
+            offlineScore.addWin();
         } else if (scorePlayer < scoreBot) {
-            System.out.println("IL BOT E' IL VINCITORE");
-            score.addLost();
+            offlineScore.addLost();
             imWinner = false;
         } else {
-            System.out.println("PAREGGIO");
-            score.addTie();
+            offlineScore.addTie();
             imWinner = false;
         }
     }
@@ -271,7 +269,8 @@ public class GameOffline extends Game {
     public int getScorePlayer() { return scorePlayer; }
     public int getScoreBot() { return scoreBot; }
     public boolean getImWinner() { return imWinner; }
-    public ArrayList<Card> getHandBot() {return this.bot.getHandBot();};
+    public ArrayList<Card> getHandBot() {return this.bot.getHandBot();}
+    public boolean getPaused() { return paused; }
 
     public int getCurrentScorePlayer() {return currentScorePlayer;}
 

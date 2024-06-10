@@ -56,7 +56,7 @@ public class EndPanelOnline extends JPanel {
 
         panel.add(continua);
 
-        JButton back= new JButton("New Game");
+        JButton back= new JButton("Rematch");
         back.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         back.setBounds(Settings.END_WIDTH / 2 + 15, Settings.END_HEIGHT - 100, 120, 40);
         back.setBorder(BorderFactory.createLineBorder(new Color(0xe8d107), 2));

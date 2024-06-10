@@ -1,6 +1,5 @@
 package model;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
@@ -11,81 +10,80 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sound
-{
+{    
+    private Clip menuOST;
+    private Clip gameOST;
+    private static Sound instance = null;
 
-    public Clip enteredButton;
-    public Clip clickedButton;
-    
-    public static Clip menuOST;
-    public static Clip gameOST;
-
-    static
-    {
+    private Sound(){
         try {
-            menuOST = loadMusic("src/main/resources/sounds/menuOST.wav");
-            gameOST = loadMusic("src/main/resources/sounds/gameOST.wav");
+            menuOST = loadClip("menuOST.wav");
+            gameOST = loadClip("gameOST.wav");
         } catch ( UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             menuOST = null;
             gameOST = null;
         }
     }
 
-    private static Clip loadMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    private Clip loadClip(String filename) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
-        AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sounds/" + filename));
         Clip clip = AudioSystem.getClip();
         clip.open(audioIn);
         return clip;
     }
 
-    public static void menuOSTLoop(){ if (menuOST != null) {menuOST.loop(Clip.LOOP_CONTINUOUSLY);}}
-    public static void gameOSTLoop(){ if (gameOST != null) {gameOST.loop(Clip.LOOP_CONTINUOUSLY);}}
-
-    public void playEnteredButton()
-    {
-        try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/button.wav"));
-            enteredButton = AudioSystem.getClip();
-            enteredButton.open(audioIn);
-            if (enteredButton != null)
-            {
-                if (enteredButton.getFramePosition() == enteredButton.getFrameLength()) { enteredButton.setFramePosition(0); }
-                enteredButton.start();
+    public void sfx(String fileName) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        Clip clip = loadClip(fileName);
+        if (clip != null) {
+            if (clip.getFramePosition() == clip.getFrameLength()) {
+                clip.setFramePosition(0);
             }
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {e.printStackTrace();}
-
-    }
-
-    public void playClickedButton()
-    {
-        try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("src/main/resources/sounds/hitted_button.wav"));
-            clickedButton = AudioSystem.getClip();
-            clickedButton.open(audioIn);
-            if (clickedButton != null)
-            {
-                if (clickedButton.getFramePosition() == clickedButton.getFrameLength()) { clickedButton.setFramePosition(0); }
-                clickedButton.start();
-            }
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {e.printStackTrace();}
-    }
-
-    public static void pause(Clip clip)
-    {
-        if (clip != null){clip.stop();}
-    }
-
-    public static void restart(Clip clip)
-    {
-        if (clip != null){
-            clip.stop();
-            clip.setFramePosition(0);
             clip.start();
         }
     }
 
-    public static int ostHandler(int sliderValue)
-    {
+    public void menuOST() {
+        if (menuOST != null) {
+            menuOST.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    public void gameOST() {
+        if (gameOST != null) {
+            gameOST.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    public void pauseMenuOST() {
+        if (menuOST != null) {
+            menuOST.stop();
+        }
+    }
+
+    public void pauseGameOST() {
+        if (gameOST != null) {
+            gameOST.stop();
+        }
+    }
+
+    public void resetMenuOST(){
+        if (menuOST != null) {
+            menuOST.stop();
+            menuOST.setFramePosition(0);
+            menuOST.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    public void resetGameOST(){
+        if (gameOST != null) {
+            gameOST.stop();
+            gameOST.setFramePosition(0);
+            gameOST.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    public int ostHandler(int sliderValue) {
         FloatControl menuOSTControl = (FloatControl) menuOST.getControl(FloatControl.Type.MASTER_GAIN);
         FloatControl gameOSTControl = (FloatControl) gameOST.getControl(FloatControl.Type.MASTER_GAIN);
         float value = sliderValue;
@@ -97,16 +95,10 @@ public class Sound
         return (int) value;
     }
 
-    public int sfxHandler(int sliderValue)
-    {
-        FloatControl enteredButtonControl = (FloatControl) enteredButton.getControl(FloatControl.Type.MASTER_GAIN);
-        FloatControl clickedButtonControl = (FloatControl) clickedButton.getControl(FloatControl.Type.MASTER_GAIN);
-        float value = sliderValue;
-        if (value >= -80.0f && value <= 6.0f)
-        {
-            enteredButtonControl.setValue(value);
-            clickedButtonControl.setValue(value);
+    public static Sound getInstance(){
+        if (instance == null) {
+            instance = new Sound();
         }
-        return (int) value;
+        return instance;
     }
 }

@@ -44,6 +44,14 @@ public class GameOnline
         return instance;
     }
 
+    public GameOnline reset() {
+        if (instance != null) {
+            instance = null;
+            instance = new GameOnline();
+        }
+        return instance;
+    }
+
     // Getters Methods
     public Card getBriscola() { return briscola; }
     public ArrayList<Card> getHandPlayer(){ return this.player.getHandPlayer(); }

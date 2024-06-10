@@ -93,17 +93,17 @@ public class GamePanelOffline extends GamePanel {
         g2d.setColor(gameOffline.getImWinner() ? Color.BLACK : Color.WHITE);
         if (!gameOffline.isGameOver()) {
             g2d.setFont(Fonts.getGamePanel());
-            g2d.drawString(bot.getBotName() + " : " + gameOffline.getScoreBot(), 600, 450);
-            g2d.drawString(player.getName() + " : " + gameOffline.getScorePlayer(), 600, 480);
+            g2d.drawString(bot.getBotName() + " : " + gameOffline.getScoreBot(), 565, 450);
+            g2d.drawString(player.getName() + " : " + gameOffline.getScorePlayer(), 565, 480);
 
             if(! gameOffline.getDeck().isEmpty()) {
                 g2d.drawString("" + gameOffline.getDeck().size(), 700, 360);
             }
 
             if(gameOffline.isMyTurn()){
-                g2d.drawString("It's your turn", 570, 40);
+                g2d.drawString("It's your turn", 565, 40);
             }else{
-                g2d.drawString("It's "+ bot.getBotName() + " turn", 570, 40);
+                g2d.drawString("It's "+ bot.getBotName() + " turn", 565, 40);
             }
         }
     }

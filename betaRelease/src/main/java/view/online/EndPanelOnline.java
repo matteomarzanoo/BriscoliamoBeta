@@ -67,7 +67,6 @@ public class EndPanelOnline extends JPanel {
 
     private void printScores(JPanel panel)
     {
-        System.out.println("aggiorno punti finali");
         JLabel score1 = new JLabel(game.getScorePlayerOne(), SwingConstants.CENTER);
         JLabel score2 = new JLabel(game.getScorePlayerTwo(), SwingConstants.CENTER);
 

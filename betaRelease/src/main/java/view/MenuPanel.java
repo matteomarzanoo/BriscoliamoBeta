@@ -115,7 +115,6 @@ public class MenuPanel extends JPanel
 
                 client.setConfiguration("127.0.0.1", 8888);
                 client.setGamePanel(gamePanelOnline);
-                System.out.println("Client start");
 
                 new Thread(client).start();
             }

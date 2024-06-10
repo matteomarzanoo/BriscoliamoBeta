@@ -136,12 +136,10 @@ public class EndPanel extends JPanel {
         int width = getWidth();
         int centerX = width / 2;
 
-        // Creazione del gradiente dal centro verso sinistra
         GradientPaint gradientLeft = new GradientPaint(centerX, yPosition, gold, 0, yPosition, goldSfumato, false);
         g2d.setPaint(gradientLeft);
         g2d.drawLine(centerX, yPosition, 0, yPosition);
 
-        // Creazione del gradiente dal centro verso destra
         GradientPaint gradientRight = new GradientPaint(centerX, yPosition, gold, width, yPosition, goldSfumato, false);
         g2d.setPaint(gradientRight);
         g2d.drawLine(centerX, yPosition, width, yPosition);}

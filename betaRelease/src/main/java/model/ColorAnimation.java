@@ -18,7 +18,7 @@ public class ColorAnimation
                 brightness += 0.05f;
                 if (brightness > 1.0f) {
                     brightness = 1.0f;
-                    timer.stop();   //  Ferma il timer quando l'animazione è completata
+                    timer.stop();
                 }
                 jButton.setForeground(interpolateColor(Color.WHITE, Color.BLACK, brightness));
             }
@@ -32,8 +32,7 @@ public class ColorAnimation
         }
         jButton.setForeground(Color.WHITE);
     }
-
-    // Metodo per interpolazione tra due colori
+    
     private static Color interpolateColor(Color start, Color end, float ratio) {
         int red = (int) (start.getRed() * (1 - ratio) + end.getRed() * ratio);
         int green = (int) (start.getGreen() * (1 - ratio) + end.getGreen() * ratio);

@@ -56,8 +56,8 @@ public class SettingsPanel extends JPanel
         };
         intermediate.setLayout(new BoxLayout(intermediate, BoxLayout.X_AXIS));
 
-        JPanel leftIntermediate = new JPanel(new GridLayout(2,1));
-        JPanel rightIntermediate = new JPanel(new GridLayout(2,1));
+        JPanel leftIntermediate = new JPanel(new GridLayout(3,1));
+        JPanel rightIntermediate = new JPanel(new GridLayout(3,1));
         leftIntermediate.setOpaque(false);
         rightIntermediate.setOpaque(false);
         addSettingsName(leftIntermediate);
@@ -69,7 +69,7 @@ public class SettingsPanel extends JPanel
     }
 
     private void addSettingsName(JPanel leftPanel) {
-        String[] settings = {"Music", "Username"};
+        String[] settings = {"Music", "Username", "Server"};
         for (String names : settings){
             JButton jButton = new JButton(names);
             jButton.setForeground(new Color(229,184,11));
@@ -100,6 +100,16 @@ public class SettingsPanel extends JPanel
         user.setForeground(Color.WHITE);
         user.addMouseListener(controller);
         rightPanel.add(user);
+
+        JButton serverButton = new JButton("Change Settings");
+        serverButton.setFont(Fonts.getSettingsRightPanel());
+        serverButton.setOpaque(false); 
+        serverButton.setContentAreaFilled(false); 
+        serverButton.setBorderPainted(false); 
+        serverButton.setFocusPainted(false); 
+        serverButton.setForeground(Color.WHITE);
+        serverButton.addMouseListener(controller);
+        rightPanel.add(serverButton);
     }
 
     public void UsernameDialog() {

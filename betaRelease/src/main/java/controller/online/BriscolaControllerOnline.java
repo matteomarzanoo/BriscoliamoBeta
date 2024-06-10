@@ -57,7 +57,6 @@ public class BriscolaControllerOnline extends KeyAdapter
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                // Imposta le nuove coordinate della carta dopo aver trascinato
                 try {
                     draggedCard.setX(e.getX() - dragOffsetX);
                     draggedCard.setY(e.getY() - dragOffsetY);

@@ -66,21 +66,16 @@ public class Client implements Runnable
     {
         try
         {
-            // Connect client to server
             clientSocket = new Socket(host, port);
             receivedMessagesHandler = new ReceivedMessagesHandler(clientSocket.getInputStream(), gamePanel);
             System.out.println("Client successfully connected to server!");
 
-            // Get Socket output stream (where the client sends messages)
             output = new PrintStream(clientSocket.getOutputStream());
 
-            // Read messages
             Scanner sc = new Scanner(System.in);
 
-            // Create a new thread for server messages handling
             new Thread(receivedMessagesHandler).start();
 
-            // While new messages
             while (sc.hasNextLine())
             {
                 String message = sc.nextLine();
@@ -91,7 +86,6 @@ public class Client implements Runnable
                 output.println(message);
             }
 
-            // Close everything
             output.close();
             sc.close();
             disconnect();

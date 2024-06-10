@@ -9,6 +9,6 @@ public class Main
     public static void main(String[] args) 
     {
         SwingUtilities.invokeLater(Frame::new); 
-        System.out.println("Avviando l'applicazione...");
+        System.out.println("Starting Game...");
     }
 }

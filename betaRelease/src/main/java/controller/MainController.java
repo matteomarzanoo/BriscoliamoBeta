@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -10,10 +9,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 import model.ColorAnimation;
-import model.GameOffline;
 import model.Sound;
-import view.GamePanel;
-import view.GamePanelOffline;
 import view.MenuPanel;
 
 public class MainController extends MouseAdapter {

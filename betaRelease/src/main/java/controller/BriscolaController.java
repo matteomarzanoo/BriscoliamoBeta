@@ -58,7 +58,6 @@ public class BriscolaController extends KeyAdapter
                         Card card = game.getHandPlayer().get(i);
                         if (card.contains(e.getPoint())) {
                             playCard(i);
-
                         }
                     }
                 }

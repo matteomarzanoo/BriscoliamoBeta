@@ -117,7 +117,7 @@ public class GamePanelOffline extends GamePanel {
     }
 
     private void drawRectangle(Graphics2D g2d){
-        int x = (int) (Settings.FRAME_WIDTH - 250) / 2;
+        int x = (int) (Settings.FRAME_WIDTH  - 250 ) / 2; //-250 per rimtterlo al centro delle carte giocate
         int y = (int) (Settings.FRAME_HEIGHT - 50) / 2;
         int width = 100;
         int height = 50;
@@ -136,7 +136,7 @@ public class GamePanelOffline extends GamePanel {
 
         g2d.setFont(new Font("Arial", Font.BOLD, 16));
         FontMetrics fm = g2d.getFontMetrics();
-        int xTesto = (Settings.FRAME_WIDTH - fm.stringWidth(currentScorePlayer) - 150) / 2;
+        int xTesto = (Settings.FRAME_WIDTH - fm.stringWidth(currentScorePlayer) - 150) / 2; //-150 per rimetterla al centro delle carte giocate
         int yTesto = (Settings.FRAME_HEIGHT - fm.getHeight())/ 2 + fm.getAscent();
 
         g2d.setColor(Color.BLACK);

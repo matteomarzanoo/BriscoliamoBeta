@@ -151,6 +151,9 @@ public class BriscolaController extends KeyAdapter
         if ((game.getHandPlayer().size() >= index) && game.isMyTurn() && (game.getCardsOnTheGround().size() < 2)) {
             gamePanelOffline.repaint();
             game.playedCardPlayer(index);
+            try {
+                sound.sfx("cardplayed.wav");
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {}
 
             if (game.getCardsOnTheGround().size() == 2) {
                 game.attributePoints();
@@ -167,6 +170,9 @@ public class BriscolaController extends KeyAdapter
         while (!game.isMyTurn() && game.getCardsOnTheGround().size() < 2) {
             gamePanelOffline.repaint();
             game.playedCardBot();
+            try {
+                sound.sfx("cardplayed.wav");
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {}
 
             if (game.getCardsOnTheGround().size() == 2) {
                 game.attributePoints();

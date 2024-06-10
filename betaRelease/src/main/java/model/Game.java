@@ -1,7 +1,6 @@
 package model;
 
 import java.util.*;
-import java.awt.Point;
 
 public abstract class Game {
     protected ArrayList<Card> cardsOnTheGround;

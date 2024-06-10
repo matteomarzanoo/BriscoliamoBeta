@@ -56,7 +56,6 @@ public class GamePanelOffline extends GamePanel {
                 int newCardHeight = (int) (Settings.CARD_HEIGHT * 1.15);
                 g2d.drawImage(cardImage, newX, newY, newCardWidth, newCardHeight, null);
             }
-            //Gestisco tutti i casi in cui le carte si trovano sui bordi del frame per non poterle portare fuori dal pannello
             //Angolo alto a sinistra
             else if (card.getX()<0 && card.getY()<0){g2d.drawImage(cardImage, 0, 0, Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
             //Anglo alto a destra
@@ -121,14 +120,14 @@ public class GamePanelOffline extends GamePanel {
     }
 
     private void drawRectangle(Graphics2D g2d){
-        int x = (int) (Settings.FRAME_WIDTH  - 250 ) / 2; //-250 per rimtterlo al centro delle carte giocate
+        int x = (int) (Settings.FRAME_WIDTH  - 250 ) / 2;
         int y = (int) (Settings.FRAME_HEIGHT - 50) / 2;
         int width = 100;
         int height = 50;
         int arcWidth = 50;
         int arcHeight = 50;
         int borderWidth = 5;
-        String currentScorePlayer = "+ " + GameOffline.getInstance().getCurrentScorePlayer() + " punti";
+        String currentScorePlayer = "+ " + GameOffline.getInstance().getCurrentScorePlayer() + " points";
 
         g2d.setColor(Color.WHITE);
         g2d.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
@@ -139,7 +138,7 @@ public class GamePanelOffline extends GamePanel {
 
         g2d.setFont(new Font("Arial", Font.BOLD, 16));
         FontMetrics fm = g2d.getFontMetrics();
-        int xTesto = (Settings.FRAME_WIDTH - fm.stringWidth(currentScorePlayer) - 150) / 2; //-150 per rimetterla al centro tra le carte giocate
+        int xTesto = (Settings.FRAME_WIDTH - fm.stringWidth(currentScorePlayer) - 150) / 2;
         int yTesto = (Settings.FRAME_HEIGHT - fm.getHeight())/ 2 + fm.getAscent();
 
         g2d.setColor(Color.BLACK);

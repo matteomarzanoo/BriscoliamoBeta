@@ -1,7 +1,6 @@
 package view;
 
 import org.example.Settings;
-import model.Sound;
 
 import javax.swing.*;
 
@@ -27,11 +26,9 @@ public class Frame extends JFrame
     }
 
     private Image loadFrameIcon(String path) {
-        try 
-        {
+        try {
             return new ImageIcon(path).getImage();
         } catch (Exception e) {
-            System.err.println("Failed to load frame icon: " + path);
             return null;
         }
     }

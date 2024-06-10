@@ -11,8 +11,6 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-import static org.example.Settings.PLAYING_AREA_LEFT_BORDER;
-
 public abstract class GamePanel extends JPanel {
     protected Player player;
     protected boolean giocato;

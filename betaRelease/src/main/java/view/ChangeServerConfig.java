@@ -21,13 +21,11 @@ public class ChangeServerConfig extends JPanel {
         int result = JOptionPane.showConfirmDialog(null, this, "Enter Values", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
-            String value1 = field1.getText();
-            String value2 = field2.getText();
-            /* Manderà questi valori al server */
-            System.out.println("Value 1: " + value1);
-            System.out.println("Value 2: " + value2);
+            /**
+             * Implementare il cambio server qui
+             */
         } else {
-            System.err.println("Action Aborted");
+            JOptionPane.showConfirmDialog(null, "Action Aborted", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
 }

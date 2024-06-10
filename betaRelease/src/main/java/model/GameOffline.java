@@ -206,14 +206,9 @@ public class GameOffline extends Game {
             }
         }
 
-        if(handWinner == 0)
-        {
-            System.out.println("Ha preso il bot");
+        if(handWinner == 0) {
             myTurn = false;
-        }
-        else
-        {
-            System.out.println("ha preso il player");
+        } else {
             myTurn = true;
         }
     }

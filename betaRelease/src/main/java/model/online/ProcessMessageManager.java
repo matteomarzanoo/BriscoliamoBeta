@@ -98,11 +98,11 @@ public class ProcessMessageManager {
 
     private void handleNewHand(String handReceived) {
         System.out.println("Updated hand received!");
-        gameOnline.getHandPlayer().clear(); // Clear the current hand
+        gameOnline.getHandPlayer().clear();
 
         String[] cardsInHand = handReceived.split(" ");
         for (String cardInHand : cardsInHand) {
-            gameOnline.getHandPlayer().add(Card.fromString(cardInHand)); // Add each card to the hand
+            gameOnline.getHandPlayer().add(Card.fromString(cardInHand));
         }
         client.getGamePanel().updatePlayerCardPositions();
     }

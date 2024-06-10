@@ -37,7 +37,6 @@ public class GamePanelOnline extends JPanel
             drawSecondPlayerHand(g2d);
             drawBriscolaAndDeck(g2d);
             drawCardsOnTheGround(g2d);
-            //drawArea(g2d);
             drawPlayerHand(g2d);
             updatePlayerCardPositions();
         }
@@ -168,25 +167,20 @@ public class GamePanelOnline extends JPanel
     {
         super.paintComponent(g);
 
-        //this.updatePlayerCardPositions();
-
         Graphics2D g2d = getGraphics2D((Graphics2D) g);
 
 
         if(game.getCardsOnTheGround().size() == 2)
         {
             repaint();
-            System.out.println("aggiorno per le tavolo sul tavolo che adesso sono due");
         }
 
         if (game.isGameOnlineOver())
         {
-            System.out.println("Partita finita!");
-
             this.endPanelOnline = new EndPanelOnline();
-            endPanelOnline.setBounds(220,160, Settings.END_WIDTH, Settings.END_HEIGHT); // Imposta la posizione e dimensione dell'EndPanel
+            endPanelOnline.setBounds(220,160, Settings.END_WIDTH, Settings.END_HEIGHT);
             this.add(endPanelOnline);
-            remove(labelTurn); // Hide the label when endPanelOnline is shown
+            remove(labelTurn);
             GameOffline.getInstance().reset();
             repaint();
         }
@@ -194,15 +188,14 @@ public class GamePanelOnline extends JPanel
         {
             if(game.getLengthHandOpponent() != -1)
                 updateLabelTurn(game.isMyTurn() ? "YOUR TURN" : "WAIT FOR YOUR TURN");
-            labelTurn.setVisible(true); // Ensure the label is visible when endPanelOnline is not shown
+            labelTurn.setVisible(true);
         }
-        // Disegna lo sfondo
         draw(g2d);
     }
 
     private static Graphics2D getGraphics2D(Graphics2D g) {
-        Color color1 =  new Color(0x00, 0x64, 0x00); // Colore più scuro
-        Color color2 =  new Color(0x32, 0xCD, 0x32); // Colore più chiaro
+        Color color1 =  new Color(0x00, 0x64, 0x00);
+        Color color2 =  new Color(0x32, 0xCD, 0x32);
 
         Point2D center = new Point2D.Float(Settings.FRAME_WIDTH / 2.0f - 80, Settings.FRAME_HEIGHT/ 2.0f);
         float radius = Math.min(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT)/2.0f;

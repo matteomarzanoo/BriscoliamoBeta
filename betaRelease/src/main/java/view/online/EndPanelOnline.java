@@ -83,8 +83,7 @@ public class EndPanelOnline extends JPanel {
         panel.add(score2);
 
     }
-    private void printSecondPlayer(JPanel panel){
-        //stampa del nome del Bot
+    private void printSecondPlayer(JPanel panel) {
         JLabel nameB = new JLabel("Player 2", SwingConstants.CENTER);
         nameB.setFont(new Font("Times New Roman", Font.PLAIN, 17));
         nameB.setBounds(200, 30, Settings.END_WIDTH - 230, 70);
@@ -92,8 +91,7 @@ public class EndPanelOnline extends JPanel {
         panel.add(nameB);
 
     }
-    private void printFirstPlayer(JPanel panel){
-        //stampa del nome del Giocatore
+    private void printFirstPlayer(JPanel panel) {
         JLabel nameP = new JLabel("Player 1", SwingConstants.CENTER);
         nameP.setFont(new Font("Times New Roman", Font.PLAIN, 17));
         nameP.setBounds(10, 30, Settings.END_WIDTH - 200, 70);
@@ -101,7 +99,7 @@ public class EndPanelOnline extends JPanel {
         panel.add(nameP);
 
     }
-    private void printScore(JPanel panel){
+    private void printScore(JPanel panel) {
         JLabel punteggio = new JLabel("FINAL SCORE", SwingConstants.CENTER);
         punteggio.setFont(new Font("Times New Roman", Font.PLAIN, 24));
         punteggio.setBounds(50, 10, Settings.END_WIDTH - 100, 50);
@@ -111,27 +109,20 @@ public class EndPanelOnline extends JPanel {
 
     private void drawLine(Graphics2D g2d){
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        // Definisci i colori del gradiente
         Color color = new Color(0xe8d107);
-        Color transparentGold = new Color(0xe8d107 & 0x00FFFFFF, true); // Colore dorato trasparente
+        Color transparentGold = new Color(0xe8d107 & 0x00FFFFFF, true);
 
-        // Crea un GradientPaint per sfumare il colore all'inizio e alla fine
         int width = Settings.END_WIDTH;
         int height = Settings.END_HEIGHT;
 
         GradientPaint inizio = new GradientPaint(0, height / 4, transparentGold, width / 4, height / 2, color, false);
         GradientPaint fine = new GradientPaint(width * 3 / 4, height / 2, color, width, height / 2, transparentGold, false);
 
-        // Disegna la linea sfumata
         g2d.setPaint(inizio);
         g2d.drawLine(0, height / 2, width/4, height / 2);
 
         g2d.setPaint(fine);
         g2d.drawLine(width * 3 / 4, height / 2, width, height / 2);
-
-
-        // Collega la parte centrale della linea
-        //g2d.setPaint(color);
         g2d.drawLine(88, height / 2, 261, height / 2);
     }
 
@@ -142,10 +133,8 @@ public class EndPanelOnline extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g.setColor(Color.WHITE);
-        g.drawLine(40, 50, 310, 50); //disegna la linea per un impatto visivo diverso
+        g.drawLine(40, 50, 310, 50);
         drawLine(g2d);
-
-        //g.drawLine(110, 120, 240, 120);
     }
 }
 

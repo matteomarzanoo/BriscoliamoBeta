@@ -7,7 +7,11 @@ import view.GamePanelOffline;
 import view.MenuPanel;
 
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.Timer;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 public class BriscolaController extends KeyAdapter
@@ -16,6 +20,8 @@ public class BriscolaController extends KeyAdapter
     private GamePanelOffline gamePanelOffline;
     private MouseMotionListener  mouseMotionListener;
     private MouseListener mouseListener;
+    private MenuPanel menuPanel;
+    private Sound sound;
 
     private Card tmp, tmpBot;
     private Card draggedCard = null;
@@ -25,6 +31,8 @@ public class BriscolaController extends KeyAdapter
     public BriscolaController(GamePanelOffline gamePanelOffline) {
         this.gamePanelOffline = gamePanelOffline;
         this.game = GameOffline.getInstance();
+        this.menuPanel = MenuPanel.getInstance();
+        this.sound = Sound.getInstance();
 
         this.mouseListener = (new MouseAdapter() {
             @Override
@@ -114,16 +122,18 @@ public class BriscolaController extends KeyAdapter
     public void keyPressed(KeyEvent e)
     {
         if (e.getKeyCode() == KeyEvent.VK_Q) {
-            MenuPanel.getInstance().exit();
+            menuPanel.exit();
         }
 
         if (e.getKeyCode() ==  KeyEvent.VK_B) { 
-            new Sound().playClickedButton();
+            try {
+                sound.sfx("hitted_button.wav");
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) { e1.printStackTrace(); }
             int choice = JOptionPane.showConfirmDialog(null, "Do you want to go back to the menu?", "Confirm", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
-                Sound.pause(Sound.gameOST);
-                Sound.restart(Sound.menuOST);
-                MenuPanel.getInstance().home();
+                sound.pauseGameOST();
+                menuPanel.home();
+                sound.resetMenuOST();
                 game.setPaused();
             }
         }

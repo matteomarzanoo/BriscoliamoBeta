@@ -17,7 +17,6 @@ public class Frame extends JFrame
         setIconImage(loadFrameIcon("src/main/resources/images/gameIcon.png"));
 
         add(MenuPanel.getInstance());
-        Sound.menuOSTLoop();
 
         setFocusable(true);
         requestFocus();

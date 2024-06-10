@@ -1,5 +1,7 @@
 package view;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 import view.online.GamePanelOnline;
@@ -13,12 +15,17 @@ import model.ImageManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class MenuPanel extends JPanel 
 {
     private BufferedImage background;
     private MainController controller;
     private final SettingsPanel settingsPanel;
+    private final RulesPanel rulesPanel;
+    private final StatisticsPanel statisticsPanel;
+    private final ChooseGameType chooseGamePanel;
+    private final Sound sound;
     private static MenuPanel instance = null;
 
     private Client client;
@@ -27,10 +34,15 @@ public class MenuPanel extends JPanel
         background = ImageManager.getBackgroundImage();
         controller = new MainController();
         client = Client.getInstance();
+        sound = Sound.getInstance();
         settingsPanel = new SettingsPanel();
+        rulesPanel = new RulesPanel();
+        statisticsPanel = new StatisticsPanel();
+        chooseGamePanel = new ChooseGameType();
         setLayout(new BorderLayout());
         addTitle();
         addButtonsPanel();
+        sound.menuOST();
     }
 
     private void addTitle() {
@@ -62,60 +74,41 @@ public class MenuPanel extends JPanel
 
     public void getSelectedPanel(String buttonText) {
         switch (buttonText) {
-            /**
-             * MenuPanel
-             */
-            case "Play Now!" -> updateView(new ChooseGameType());
-            case "Statistics" -> updateView(new StatisticsPanel());
-            case "Rules" -> updateView(new RulesPanel());
+            case "Play Now!" -> updateView(chooseGamePanel);
+            case "Statistics" -> {
+                statisticsPanel.updateStats();
+                updateView(statisticsPanel);
+            }
+            case "Rules" -> updateView(rulesPanel);
             case "Settings" -> updateView(settingsPanel);
-
-            /**
-             * General Cases
-             */
             case "Exit" -> exit();
             case "←" -> home();
-
-            /**
-             * Settings Panel
-             */
             case "Change Username" -> settingsPanel.UsernameDialog();
-            case "Set Table Color" -> settingsPanel.tableColor();
-            case "Change Server Settings" -> new ChangeServerConfig();
-
-            /**
-             * EndPanel
-             */
             case "Home" -> {
-                Sound.pause(Sound.gameOST); 
+                sound.pauseGameOST(); 
                 home();
-                Sound.restart(Sound.menuOST);
+                sound.resetMenuOST();
             }
-
             case "New Game" -> {
                 GamePanelOffline gamePanel = new GamePanelOffline();
                 updateView(gamePanel);
                 BriscolaController briscolaController = new BriscolaController(gamePanel);
                 gamePanel.setController(briscolaController);
             }
-
-            /**
-             * ChooseGamePanel
-             */
             case "Play Offline" -> {
                 GamePanelOffline gamePanel = new GamePanelOffline();
-                Sound.pause(Sound.menuOST);
+                sound.pauseMenuOST();
                 updateView(gamePanel);
-                Sound.gameOSTLoop();
+                sound.gameOST();
                 BriscolaController briscolaController = gamePanel.getController();
                 gamePanel.setController(briscolaController);
 
             }
             case "Play Online" -> {
                 GamePanelOnline gamePanelOnline = new GamePanelOnline();
-                Sound.pause(Sound.menuOST);
+                sound.pauseMenuOST();
                 updateView(gamePanelOnline);
-                Sound.gameOSTLoop();
+                sound.gameOST();
                 BriscolaControllerOnline briscolaControllerOnline = new BriscolaControllerOnline(gamePanelOnline);
                 gamePanelOnline.setController(briscolaControllerOnline);
 
@@ -124,6 +117,12 @@ public class MenuPanel extends JPanel
                 System.out.println("Client start");
 
                 new Thread(client).start();
+            }
+            case "Rematch" -> {
+                GamePanelOnline gamePanelOnline = new GamePanelOnline();
+                updateView(gamePanelOnline);
+                BriscolaControllerOnline briscolaControllerOnline = new BriscolaControllerOnline(gamePanelOnline);
+                gamePanelOnline.setController(briscolaControllerOnline);
             }
         }
     }
@@ -144,7 +143,9 @@ public class MenuPanel extends JPanel
     }
 
     public void exit() {
-        new Sound().playClickedButton();
+        try {
+            sound.sfx("hitted_button.wav");
+        } catch ( UnsupportedAudioFileException | IOException | LineUnavailableException e ) { e.printStackTrace();}
         int choise = JOptionPane.showConfirmDialog(null, "Do you want to close the game?", "Exit", JOptionPane.YES_NO_OPTION);
         if (choise == JOptionPane.YES_OPTION) {
             System.exit(0); 

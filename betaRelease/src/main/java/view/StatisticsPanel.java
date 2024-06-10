@@ -9,21 +9,37 @@ import controller.MainController;
 import model.Fonts;
 import model.ImageManager;
 import model.Player;
-import model.PlayerScore;
+import model.scores.OfflineScore;
+import model.scores.OnlineScore;
 
 public class StatisticsPanel extends JPanel 
 {
     private BufferedImage background;
     private BufferedImage blurredBackground;
     private MainController controller;
-    private PlayerScore score;
+    private OfflineScore offlineScore;
+    private OnlineScore onlineScore;
     private Player player;
+
+    private JLabel name;
+    private JLabel offWins;
+    private JLabel offLost;
+    private JLabel offWinrate;
+    private JLabel offTies;
+    private JLabel totOffGames;
+    private JLabel onWins;
+    private JLabel onLost;
+    private JLabel onTies;
+    private JLabel onWinrate;
+    private JLabel totOnGames;
+
 
     public StatisticsPanel(){
         controller = new MainController();
         background = ImageManager.getBackgroundImage();
         blurredBackground = ImageManager.getBlurred();
-        score = PlayerScore.getInstance();
+        offlineScore = OfflineScore.getInstance();
+        onlineScore = OnlineScore.getInstance();
         player = new Player();
         setLayout(new BorderLayout());
         addButtonPanel();
@@ -48,9 +64,6 @@ public class StatisticsPanel extends JPanel
     }
 
     private void addStatistics() {
-        /**
-         * Creating panel and add background
-         */
         JPanel jPanel = new JPanel(new BorderLayout()){
             @Override
             protected void paintComponent(Graphics g){
@@ -61,21 +74,18 @@ public class StatisticsPanel extends JPanel
             }
         };
 
-        /**
-         * Adding player's name to the top
-         */
         name(jPanel);
         centerPanel(jPanel);
         add(jPanel, BorderLayout.CENTER);
     }
 
     private void name(JPanel jPanel){
-        JLabel label = new JLabel("Welcome back " + player.getName() + "!");
-        label.setFont(Fonts.getStatisticsPanel());
-        label.setForeground(Color.WHITE);
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setOpaque(false);
-        jPanel.add(label, BorderLayout.NORTH);
+        name = new JLabel("Welcome back " + String.valueOf(player.getName()) + "!");
+        name.setFont(Fonts.getStatisticsPanel());
+        name.setForeground(Color.WHITE);
+        name.setHorizontalAlignment(SwingConstants.CENTER);
+        name.setOpaque(false);
+        jPanel.add(name, BorderLayout.NORTH);
     }
 
     private void centerPanel(JPanel jPanel) {
@@ -86,61 +96,61 @@ public class StatisticsPanel extends JPanel
         JPanel labelPanel = new JPanel(new GridLayout(12,1,0,0));
         labelPanel.setOpaque(false);
 
-        JLabel offWins = new JLabel("Wins: " + String.valueOf(score.getWins()), SwingConstants.CENTER);
+        offWins = new JLabel("Wins: " + String.valueOf(offlineScore.getWins()), SwingConstants.CENTER);
         offWins.setFont(Fonts.getMenuPanel());
         offWins.setForeground(Color.WHITE);
         offWins.setOpaque(false);
         labelList.add(offWins);
 
-        JLabel offLost = new JLabel("Lost: " + String.valueOf(score.getLost()), SwingConstants.CENTER);
+        offLost = new JLabel("Lost: " + String.valueOf(offlineScore.getLost()), SwingConstants.CENTER);
         offLost.setFont(Fonts.getMenuPanel());
         offLost.setForeground(Color.WHITE);
         offLost.setOpaque(false);
         labelList.add(offLost);
-
-        JLabel offWinrate = new JLabel("Winrate: " + String.valueOf(score.getWinrate()) + "%", SwingConstants.CENTER);
-        offWinrate.setFont(Fonts.getMenuPanel());
-        offWinrate.setForeground(Color.WHITE);
-        offWinrate.setOpaque(false);
-        labelList.add(offWinrate);
-
-        JLabel offTies = new JLabel("Ties: " + String.valueOf(score.getTies()), SwingConstants.CENTER);
+        
+        offTies = new JLabel("Ties: " + String.valueOf(offlineScore.getTies()), SwingConstants.CENTER);
         offTies.setFont(Fonts.getMenuPanel());
         offTies.setForeground(Color.WHITE);
         offTies.setOpaque(false);
         labelList.add(offTies);
 
-        JLabel totOffGames = new JLabel("Total Offline Games: " + String.valueOf(score.getTotalGames()), SwingConstants.CENTER);
+        offWinrate = new JLabel("Winrate: " + String.valueOf(offlineScore.getWinrate()) + "%", SwingConstants.CENTER);
+        offWinrate.setFont(Fonts.getMenuPanel());
+        offWinrate.setForeground(Color.WHITE);
+        offWinrate.setOpaque(false);
+        labelList.add(offWinrate);
+
+        totOffGames = new JLabel("Total Offline Games: " + String.valueOf(offlineScore.getTotalGames()), SwingConstants.CENTER);
         totOffGames.setFont(Fonts.getMenuPanel());
         totOffGames.setForeground(Color.WHITE);
         totOffGames.setOpaque(false);
         labelList.add(totOffGames);
 
-        JLabel onWins = new JLabel("Online Wins: " , SwingConstants.CENTER);
+        onWins = new JLabel("Online Wins: " + String.valueOf(onlineScore.getWins()), SwingConstants.CENTER);
         onWins.setFont(Fonts.getMenuPanel());
         onWins.setForeground(Color.WHITE);
         onWins.setOpaque(false);
         labelList.add(onWins);
 
-        JLabel onLost = new JLabel("Online Lost: " , SwingConstants.CENTER);
+        onLost = new JLabel("Online Lost: " + String.valueOf(onlineScore.getLost()), SwingConstants.CENTER);
         onLost.setFont(Fonts.getMenuPanel());
         onLost.setForeground(Color.WHITE);
         onLost.setOpaque(false);
         labelList.add(onLost);
 
-        JLabel onWinrate = new JLabel("Online Winrate: " + "%", SwingConstants.CENTER);
-        onWinrate.setFont(Fonts.getMenuPanel());
-        onWinrate.setForeground(Color.WHITE);
-        onWinrate.setOpaque(false);
-        labelList.add(onWinrate);
-
-        JLabel onTies = new JLabel("Online Ties: ", SwingConstants.CENTER);
+        onTies = new JLabel("Online Ties: " + String.valueOf(onlineScore.getTies()), SwingConstants.CENTER);
         onTies.setFont(Fonts.getMenuPanel());
         onTies.setForeground(Color.WHITE);
         onTies.setOpaque(false);
         labelList.add(onTies);
 
-        JLabel totOnGames = new JLabel("Total Online Games: ",  SwingConstants.CENTER);
+        onWinrate = new JLabel("Online Winrate: " + String.valueOf(onlineScore.getWinrate()) + "%", SwingConstants.CENTER);
+        onWinrate.setFont(Fonts.getMenuPanel());
+        onWinrate.setForeground(Color.WHITE);
+        onWinrate.setOpaque(false);
+        labelList.add(onWinrate);
+
+        totOnGames = new JLabel("Total Online Games: " + String.valueOf(onlineScore.getTotalGames()),  SwingConstants.CENTER);
         totOnGames.setFont(Fonts.getMenuPanel());
         totOnGames.setForeground(Color.WHITE);
         totOnGames.setOpaque(false);
@@ -153,6 +163,20 @@ public class StatisticsPanel extends JPanel
 
         center.add(labelPanel);
         jPanel.add(center);
+    }
+
+    public void updateStats() {
+        name.setText("Welcome back " + String.valueOf(player.getName()) + "!");
+        offWins.setText("Wins: " + String.valueOf(offlineScore.getWins()));
+        offLost.setText("Lost: " + String.valueOf(offlineScore.getLost()));
+        offTies.setText("Ties: " + String.valueOf(offlineScore.getTies()));
+        offWinrate.setText("Winrate: " + String.valueOf(offlineScore.getWinrate()) + "%");
+        totOffGames.setText("Total Offline Games: " + String.valueOf(offlineScore.getTotalGames()));
+        onWins.setText("Online Wins: " + String.valueOf(onlineScore.getWins()));
+        onLost.setText("Online Lost: " + String.valueOf(onlineScore.getLost()));
+        onTies.setText("Online Ties: " + String.valueOf(onlineScore.getTies()));
+        onWinrate.setText("Online Winrate: " + String.valueOf(onlineScore.getWinrate()) + "%");
+        totOnGames.setText("Total Online Games: " + String.valueOf(onlineScore.getTotalGames()));
     }
 
     @Override

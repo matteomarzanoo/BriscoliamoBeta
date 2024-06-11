@@ -5,10 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import controller.MainController;
 import model.Fonts;
@@ -25,27 +24,11 @@ public class ChooseGameType extends JPanel
         background = ImageManager.getBackgroundImage();
         blurredBackground = ImageManager.getBlurred();
         setLayout(new BorderLayout());
-        addButtonPanel();
-        selectedTypeGame();
+        init();
     }
+    
 
-    private void addButtonPanel(){
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setOpaque(false);
-
-        JButton jButton = new JButton("←");
-        jButton.setFont(Fonts.getMenuPanel());
-        jButton.setOpaque(false);
-        jButton.setContentAreaFilled(false);
-        jButton.setBorderPainted(false);
-        jButton.setFocusPainted(false);
-        jButton.setForeground(Color.WHITE);
-        jButton.addMouseListener(controller);
-        add(jButton, BorderLayout.NORTH);
-    }
-
-    private void selectedTypeGame() {
+    private void init() {
         JPanel panel = new JPanel(new GridLayout(1,2)){
             @Override
             protected void paintComponent(Graphics g){
@@ -56,22 +39,32 @@ public class ChooseGameType extends JPanel
             }
         };
 
-        String[] names = {"Play Offline", "Play Online"};
+        String[] names = {"←", "Play Offline", "Play Online"};
         for (String name : names) {
-            JButton buttons = new JButton(name);
-            buttons.setOpaque(false);
-            buttons.setContentAreaFilled(false);
-            buttons.setBorderPainted(false);
-            buttons.setFocusPainted(false);
-            buttons.setForeground(Color.WHITE);
-            buttons.setFont(Fonts.getMenuPanel());
-            buttons.addMouseListener(controller);
-            panel.add(buttons);
+            buttons(name, panel);
         }
-        
         add(panel, BorderLayout.CENTER);
     }
 
+    private void buttons(String name, JPanel panel) {
+        JButton jButton = new JButton(name);
+        jButton.setFont(Fonts.getMenuPanel());
+        jButton.setOpaque(false); 
+        jButton.setContentAreaFilled(false); 
+        jButton.setBorderPainted(false); 
+        jButton.setFocusPainted(false);
+        jButton.setForeground(Color.WHITE);
+        jButton.addMouseListener(controller);
+        panel.add(jButton);
+
+        if (jButton.getText().equals("←")) {
+            jButton.setHorizontalAlignment(SwingConstants.LEFT);
+            add(jButton, BorderLayout.NORTH);
+        } else {
+            panel.add(jButton);
+        }
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

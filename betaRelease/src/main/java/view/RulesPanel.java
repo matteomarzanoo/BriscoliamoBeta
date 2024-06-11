@@ -66,7 +66,7 @@ public class RulesPanel extends JPanel
         try {
             File file = new File("src/main/resources/rules.html");
             editorPane.setPage(file.toURI().toURL());
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {}
     }
 
     @Override

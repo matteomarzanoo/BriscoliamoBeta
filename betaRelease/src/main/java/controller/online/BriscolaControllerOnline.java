@@ -124,19 +124,19 @@ public class BriscolaControllerOnline extends KeyAdapter
         game.getCardsOnTheGround().clear();
 
         if (e.getKeyCode() == KeyEvent.VK_Q) {
-            menuPanel.exit();
+            menuPanel.getMenuState().exit();
         }
 
         if (e.getKeyCode() ==  KeyEvent.VK_B) { 
             try {
                 sound.sfx("hitted_button.wav");
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) { e1.printStackTrace(); }
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {}
             int choice = JOptionPane.showConfirmDialog(null, "Do you want to go back to the menu? The match will be cancelled and you will LOSE.", "Confirm", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
                 onlineScore.addLost();
                 game.reset();
                 sound.pauseGameOST();
-                menuPanel.home();
+                menuPanel.getMenuState().home();
                 sound.resetMenuOST();
             }
         }
@@ -167,6 +167,9 @@ public class BriscolaControllerOnline extends KeyAdapter
         {
             tmp = game.playedCardPlayer(index);
             gamePanel.updatePlayerCardPositions();
+            try {
+                sound.sfx("played_card.wav");
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {}
 
             client.sendMessageToServer(tmp.toString());
             game.getHandPlayer().remove(tmp);

@@ -119,7 +119,7 @@ public class BriscolaController extends KeyAdapter
     public void keyPressed(KeyEvent e)
     {
         if (e.getKeyCode() == KeyEvent.VK_Q) {
-            menuPanel.exit();
+            menuPanel.getMenuState().exit();
         }
 
         if (e.getKeyCode() ==  KeyEvent.VK_B) { 
@@ -129,7 +129,7 @@ public class BriscolaController extends KeyAdapter
             int choice = JOptionPane.showConfirmDialog(null, "Do you want to go back to the menu?", "Confirm", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
                 sound.pauseGameOST();
-                menuPanel.home();
+                menuPanel.getMenuState().home();
                 sound.resetMenuOST();
                 game.setPaused();
             }
@@ -172,9 +172,6 @@ public class BriscolaController extends KeyAdapter
         while (!game.isMyTurn() && game.getCardsOnTheGround().size() < 2) {
             gamePanelOffline.repaint();
             game.playedCardBot();
-            try {
-                sound.sfx("played_card.wav");
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {}
 
             if (game.getCardsOnTheGround().size() == 2) {
                 game.attributePoints();

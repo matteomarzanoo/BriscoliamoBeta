@@ -23,7 +23,7 @@ public class ImageManager  {
 
             endPanelImage = ImageIO.read(new File("src/main/resources/images/t1bis.jpg"));
             endPanelImage = createBlurredImage(endPanelImage, 2);
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {}
     }
 
     public static BufferedImage getBackgroundImage() {

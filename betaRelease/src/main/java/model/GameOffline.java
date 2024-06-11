@@ -38,8 +38,7 @@ public class GameOffline extends Game {
         isFirstPlayer = !isDealerPlayer;
         myTurn = !isDealerPlayer;
 
-        if(myTurn)
-        {
+        if(myTurn) {
             handWinner = 1;
         }
 
@@ -62,10 +61,8 @@ public class GameOffline extends Game {
         initializeDeck();
         distributeHand();
         briscola = chooseBriscola();
-        System.out.println("Briscola logic start");
 
-        if(!myTurn)
-        {
+        if(!myTurn) {
             playedCardBot();
         }
     }

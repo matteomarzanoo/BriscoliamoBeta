@@ -15,6 +15,7 @@ public class Fonts
     private static Font settingsRightPanel;
     private static Font statisticsPanel;
     private static Font endpanelscores;
+    
     static{
         try{
             logo = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/fonts/Playfair_Display/static/PlayfairDisplay-BlackItalic.ttf")).deriveFont(128f);

@@ -26,10 +26,10 @@ public class MainController extends MouseAdapter {
         if (e.getSource() instanceof JButton jButton) {
             try {
                 sound.sfx("hitted_button.wav");
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1 ) {e1.printStackTrace();}
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1 ) {}
             colorAnimations.exited(jButton);
             String buttonText = jButton.getText();
-            MenuPanel.getInstance().getSelectedPanel(buttonText);
+            MenuPanel.getInstance().getMenuState().getSelectedPanel(buttonText);
         }
     }
 
@@ -38,7 +38,7 @@ public class MainController extends MouseAdapter {
         if (e.getSource() instanceof JButton jButton) {
             try {
                 sound.sfx("button.wav");
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1 ) {e1.printStackTrace();}
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1 ) {}
             colorAnimations.entered(jButton);
         }
     }

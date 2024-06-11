@@ -31,7 +31,6 @@ public class GamePanelOffline extends GamePanel {
             drawBriscolaAndDeck(g2d);
             drawScores(g2d);
             drawPlayerHand(g2d);
-            //drawArea(g2d);
             updatePlayerCardPositions();
            if (gameOffline.getCurrentScorePlayer() > 0){
                drawRectangle(g2d);
@@ -39,7 +38,6 @@ public class GamePanelOffline extends GamePanel {
         } catch (Exception e) {}
 
     }
-
     private void drawBotHand(Graphics2D g2d) {
         for (int i = 0; i < gameOffline.getHandBot().size(); i++) {
             Image cardImage = loadCardImage("/carte/Dorso3.png");

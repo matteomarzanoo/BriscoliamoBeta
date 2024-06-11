@@ -200,7 +200,7 @@ public class BriscolaController extends KeyAdapter
             }
         });
 
-        timer.setRepeats(false); // Imposta il timer per non ripetersi
+        timer.setRepeats(false);
         timer.start();
     }
 

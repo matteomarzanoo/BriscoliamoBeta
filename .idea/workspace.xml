@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="64031c0a-ce24-4107-a1d4-e3a52aad7053" name="Changes" comment="" />
+    <list default="true" id="64031c0a-ce24-4107-a1d4-e3a52aad7053" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/controller/BriscolaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/controller/BriscolaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/model/Fonts.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/model/Fonts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/model/GameOffline.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/model/GameOffline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/model/online/GameOnline.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/model/online/GameOnline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/view/EndPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/view/EndPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/view/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/view/Frame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/view/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/view/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/view/GamePanelOffline.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/view/GamePanelOffline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/view/MenuPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/view/MenuPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/view/RulesPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/view/RulesPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/view/SettingsPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/view/SettingsPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betaRelease/src/main/java/view/online/EndPanelOnline.java" beforeDir="false" afterPath="$PROJECT_DIR$/betaRelease/src/main/java/view/online/EndPanelOnline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/briscoliamoServer/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/briscoliamoServer/src/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,21 +29,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "SAMUSTORM"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;SAMUSTORM&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/matteomarzanoo/BriscoliamoBeta.git",
-    "accountId": "f36baba6-1b0f-4fb3-a3d0-cdd085a07620"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/matteomarzanoo/BriscoliamoBeta.git&quot;,
+    &quot;accountId&quot;: &quot;f36baba6-1b0f-4fb3-a3d0-cdd085a07620&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2hgCzrRIVIzi67zsr5geupgZu4y" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -34,9 +53,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/samue/OneDrive/Desktop/BriscoliamoBeta/betaRelease"
+    "last_opened_file_path": "C:/Users/samue/OneDrive/Desktop/BriscoliamoBeta/briscoliamoServer"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

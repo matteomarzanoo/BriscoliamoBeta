@@ -26,11 +26,14 @@ public class EndPanelOnline extends JPanel {
 
         if (game.isGameOnlineOver()) {
             game.getCardsOnTheGround().clear();
+
             Border compoundBorder = new CompoundBorder(
                     new LineBorder(Color.BLACK, 7),
                     new LineBorder(new Color(140, 103, 3), 1)
             );
             this.setBorder(compoundBorder);
+
+            this.setBorder(BorderFactory.createLineBorder(new Color(0xe8d107), 7));
         }
 
         Color gold = new Color(232, 209, 7);

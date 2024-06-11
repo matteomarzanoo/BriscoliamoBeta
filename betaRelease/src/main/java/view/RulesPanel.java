@@ -22,24 +22,11 @@ public class RulesPanel extends JPanel
         background = ImageManager.getBackgroundImage();
         blurredBackground = ImageManager.getBlurred();
         setLayout(new BorderLayout());
-        addButtonPanel();
         addRules();
     }
 
-    private void addButtonPanel() {
-        JButton jButton = new JButton("←");
-        jButton.setFont(Fonts.getMenuPanel());
-        jButton.setOpaque(false); 
-        jButton.setContentAreaFilled(false); 
-        jButton.setBorderPainted(false); 
-        jButton.setFocusPainted(false);
-        jButton.setForeground(Color.WHITE);
-        jButton.setHorizontalAlignment(SwingConstants.LEFT);
-        jButton.addMouseListener(controller);
-        add(jButton, BorderLayout.NORTH);
-    }
-
     private void addRules() {
+        addButtonPanel();
         JEditorPane editorPane = new JEditorPane();
         editorPane.setContentType("text/html");
         editorPane.setEditable(false);
@@ -60,6 +47,19 @@ public class RulesPanel extends JPanel
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
         add(scrollPane, BorderLayout.CENTER);
+    }
+
+    private void addButtonPanel() {
+        JButton jButton = new JButton("←");
+        jButton.setFont(Fonts.getMenuPanel());
+        jButton.setOpaque(false); 
+        jButton.setContentAreaFilled(false); 
+        jButton.setBorderPainted(false); 
+        jButton.setFocusPainted(false);
+        jButton.setForeground(Color.WHITE);
+        jButton.setHorizontalAlignment(SwingConstants.LEFT);
+        jButton.addMouseListener(controller);
+        add(jButton, BorderLayout.NORTH);
     }
 
     private void HTMLRules(JEditorPane editorPane) {

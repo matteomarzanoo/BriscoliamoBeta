@@ -35,7 +35,6 @@ public class EndPanel extends JPanel {
             this.setBorder(union);
         }
         Color gold = new Color(232,209,7);
-        //Color gold = new Color(140, 103, 3);
 
         addLabelsToContentPanel(this, gold);
         addButtonsToPanel(this, gold);
@@ -45,6 +44,7 @@ public class EndPanel extends JPanel {
         repaint();
 
     }
+
     private void addLabelsToContentPanel(JPanel panel, Color gold) {
         printScore(panel);
         printNamePlayer(panel);
@@ -59,10 +59,11 @@ public class EndPanel extends JPanel {
         home.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         home.setBounds(Settings.END_WIDTH / 2 - 140, Settings.END_HEIGHT - 65, 120, 40);
         home.setOpaque(false);
+        home.setForeground(Color.WHITE);
         home.setContentAreaFilled(false);
         home.setFocusPainted(false);
         Border one = new LineBorder(gold, 2);
-        Border two = new LineBorder(Color.WHITE, 3);
+        Border two = new LineBorder(Color.BLACK, 3);
         Border union = new CompoundBorder(two,one);
         home.setBorder(union);
         home.addMouseListener(controller);
@@ -73,10 +74,11 @@ public class EndPanel extends JPanel {
         playAgain.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         playAgain.setBounds(Settings.END_WIDTH / 2 + 25, Settings.END_HEIGHT - 65, 120, 40);
         playAgain.setOpaque(false);
+        playAgain.setForeground(Color.WHITE);
         playAgain.setContentAreaFilled(false);
         playAgain.setFocusPainted(false);
         Border one1 = new LineBorder(gold, 2);
-        Border two2 = new LineBorder(Color.WHITE, 3);
+        Border two2 = new LineBorder(Color.BLACK, 3);
         Border union3 = new CompoundBorder(two2,one1);
         playAgain.setBorder(union3);
         playAgain.addMouseListener(controller);
@@ -102,7 +104,6 @@ public class EndPanel extends JPanel {
 
     }
     private void printNameBot(JPanel panel){
-        //stampa del nome del Bot
         JLabel nameB = new JLabel(game.getBot().getBotName(), SwingConstants.CENTER);
         nameB.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         nameB.setBounds(200, 40, Settings.END_WIDTH - 230, 70);
@@ -111,8 +112,12 @@ public class EndPanel extends JPanel {
 
     }
     private void printNamePlayer(JPanel panel){
+<<<<<<< HEAD
         //stampa del nome del Giocatore
         JLabel nameP = new JLabel(game.getPlayer().getNickname(), SwingConstants.CENTER);
+=======
+        JLabel nameP = new JLabel(game.getPlayer().getName(), SwingConstants.CENTER);
+>>>>>>> origin/main
         nameP.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         nameP.setBounds(10, 40, Settings.END_WIDTH - 200, 70);
         nameP.setForeground(Color.BLACK);
@@ -135,6 +140,7 @@ public class EndPanel extends JPanel {
         int width = getWidth();
         int centerX = width / 2;
 
+<<<<<<< HEAD
         // Creazione del gradiente dal centro verso sinistra
         GradientPaint gradientLeft = new GradientPaint(centerX, yPosition, gold, 0, yPosition, goldSfumato, false);
         g2d.setPaint(gradientLeft);
@@ -143,6 +149,14 @@ public class EndPanel extends JPanel {
         // Creazione del gradiente dal centro verso destra
         GradientPaint gradientRight = new GradientPaint(centerX, yPosition, gold, width, yPosition, goldSfumato, false);
         g2d.setPaint(gradientRight);
+=======
+        GradientPaint left = new GradientPaint(centerX, yPosition, gold, 0, yPosition, goldSfumato, false);
+        g2d.setPaint(left);
+        g2d.drawLine(centerX, yPosition, 0, yPosition);
+
+        GradientPaint right = new GradientPaint(centerX, yPosition, gold, width, yPosition, goldSfumato, false);
+        g2d.setPaint(right);
+>>>>>>> origin/main
         g2d.drawLine(centerX, yPosition, width, yPosition);}
 
     @Override

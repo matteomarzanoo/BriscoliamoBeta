@@ -1,55 +1,56 @@
 package model.online;
 
 import model.Card;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
 public class ProcessMessageManager {
-    private GameOnline gameOnline;
-    private Client client;
+    private final GameOnline gameOnline;
+    private final Client client;
 
     public ProcessMessageManager() {
-        gameOnline = GameOnline.getInstance();
-        client = Client.getInstance();
+        this.gameOnline = GameOnline.getInstance();
+        this.client = Client.getInstance();
     }
 
     public void processMessage(String message) {
-        switch (message.charAt(0)) {
+        if (message.isEmpty()) {
+            return;
+        }
+
+        char messageType = message.charAt(0);
+        String content = message.substring(1).trim();
+
+        switch (messageType) {
             case '>':
-                if (Objects.equals(message, "game started")) {
-                    handleGameStarted();
-                } else if (Objects.equals(message, ">")) {
-                    handleGameFinished();
-                } else {
-                    handleNewHand(message.substring(1).trim());
-                }
+                processGameMessage(message, content);
                 break;
             case 'Y':
             case 'W':
-                if (message.startsWith("YOUR TURN") || message.startsWith("WAIT FOR YOUR TURN")) {
-                    handleTurnMessage(message);
-                }
+                handleTurnMessage(message);
+                break;
+            case '=':
+                handleNicknames(content);
                 break;
             case '^':
-                handleSizeDeck(message.substring(1));
+                handleSizeDeck(content);
                 break;
             case '@':
-                handleCardsOnTheGround(message.substring(1));
+                handleCardsOnTheGround(content);
                 break;
             case '-':
-                handleBriscola(message.substring(1));
+                handleBriscola(content);
                 break;
             case '!':
             case '?':
-                handlerHandOpponent(message.substring(1));
-                break;
-            case '&':
-                handleFinalScore(message.substring(1).trim());
+                handleHandOpponent(content);
                 break;
             case '+':
                 handleEndGame();
+                break;
+            case '#':
+                handleScorePlayers(content);
                 break;
             default:
                 // Handle unexpected messages
@@ -57,12 +58,34 @@ public class ProcessMessageManager {
                 break;
         }
 
-        System.out.println("gameOnline.isGameOnlineOver() --> " + gameOnline.isGameOnlineOver());
-
-        if (gameOnline.getHandPlayer().isEmpty() && gameOnline.getLengthHandOpponent() == 0 && !gameOnline.isGameOnlineOver()) {
+        if (gameOnline.getHandPlayer().isEmpty() && !gameOnline.isGameOnlineOver()) {
             client.sendMessageToServer("$");
-            System.out.println("invio il dollaro come segno che è finita la partita!");
+            System.out.println("Sent the dollar sign as an indication that the game is over!");
         }
+    }
+
+    private void processGameMessage(String message, String content) {
+        if (message.equals("> game started")) {
+            handleGameStarted();
+        } else if (message.equals("> game finished")) {
+            handleGameFinished();
+        } else {
+            handleNewHand(content);
+        }
+    }
+
+    private void handleScorePlayers(String message) {
+        String[] scoresReceived = message.split(" ");
+        System.out.println(Arrays.asList(scoresReceived));
+        gameOnline.getScoresPlayer().clear();
+        gameOnline.getScoresPlayer().add(scoresReceived[0]);
+        gameOnline.getScoresPlayer().add(scoresReceived[1]);
+    }
+
+    private void handleNicknames(String message) {
+        String[] nicknames = message.split(" ");
+        gameOnline.getNicknamesPlayer().clear();
+        gameOnline.getNicknamesPlayer().addAll(Arrays.asList(nicknames));
     }
 
     private void handleEndGame() {
@@ -70,21 +93,18 @@ public class ProcessMessageManager {
         client.getGamePanel().repaint();
     }
 
-    private void handleFinalScore(String message) {
-        String[] scoreReceived = message.split(" ");
-        ArrayList<String> scores = new ArrayList<>(Arrays.asList(scoreReceived));
-
-        gameOnline.setScorePlayerOne(scores.get(0));
-        gameOnline.setScorePlayerTwo(scores.get(1));
-    }
-
     private void handleSizeDeck(String message) {
-        gameOnline.setSizeDeck(Integer.parseInt(message));
-        System.out.println("size-deck : " + Integer.parseInt(message));
+        try {
+            int sizeDeck = Integer.parseInt(message);
+            gameOnline.setSizeDeck(sizeDeck);
+            System.out.println("size-deck: " + sizeDeck);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid size deck value: " + message);
+        }
     }
 
     private void handleGameFinished() {
-        System.out.println("partita finita!");
+        System.out.println("Game finished!");
     }
 
     private void handleGameStarted() {
@@ -97,14 +117,18 @@ public class ProcessMessageManager {
     }
 
     private void handleNewHand(String handReceived) {
-        System.out.println("Updated hand received!");
-        gameOnline.getHandPlayer().clear();
+        try {
+            System.out.println("Updated hand received!");
+            gameOnline.getHandPlayer().clear();
 
-        String[] cardsInHand = handReceived.split(" ");
-        for (String cardInHand : cardsInHand) {
-            gameOnline.getHandPlayer().add(Card.fromString(cardInHand));
+            String[] cardsInHand = handReceived.split(" ");
+            for (String cardInHand : cardsInHand) {
+                gameOnline.getHandPlayer().add(Card.fromString(cardInHand));
+            }
+            client.getGamePanel().updatePlayerCardPositions();
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid card format in hand received: " + handReceived);
         }
-        client.getGamePanel().updatePlayerCardPositions();
     }
 
     private void handleCardsOnTheGround(String cardsReceived) {
@@ -130,11 +154,15 @@ public class ProcessMessageManager {
     }
 
     private void handleBriscola(String briscolaReceived) {
-        System.out.println("briscola: " + briscolaReceived);
         gameOnline.setBriscola(Card.fromString(briscolaReceived));
     }
 
-    private void handlerHandOpponent(String message) {
-        gameOnline.setLengthHandOpponent(Integer.parseInt(message));
+    private void handleHandOpponent(String message) {
+        try {
+            int lengthHandOpponent = Integer.parseInt(message);
+            gameOnline.setLengthHandOpponent(lengthHandOpponent);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid hand opponent value: " + message);
+        }
     }
 }

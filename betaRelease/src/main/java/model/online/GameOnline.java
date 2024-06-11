@@ -9,20 +9,19 @@ public class GameOnline
     private ArrayList<Card> cardsOnTheGround;
     private Player player;
     private Card briscola;
-    private String scorePlayerOne;
-    private String scorePlayerTwo;
-    private boolean isFirstPlayer;
-    private boolean isGameStarted;
     private boolean myTurn;
-    private final Random random = new Random();
     private int lengthHandOpponent = -1;
     private boolean gameOnlineOver = false;
     private int sizeDeck = -1;
+    private List<String> nicknamesPlayer;
+    private List<String> scoresPlayer;
 
     private GameOnline()
     {
         cardsOnTheGround = new ArrayList<>(2);
         player = new Player();
+        nicknamesPlayer = new ArrayList<>(2);
+        scoresPlayer = new ArrayList<>(2) ;
     }
 
     public Card playedCardPlayer(int index)
@@ -43,44 +42,30 @@ public class GameOnline
         return instance;
     }
 
-    public GameOnline reset() {
+    public void reset() {
         if (instance != null) {
             instance = null;
             instance = new GameOnline();
         }
-        return instance;
     }
 
     public Card getBriscola() { return briscola; }
     public ArrayList<Card> getHandPlayer(){ return this.player.getHandPlayer(); }
     public Player getPlayer() { return player; }
     public void setBriscola(Card briscola) {this.briscola = briscola;}
-    public boolean isGameStarted() {return isGameStarted;}
-    public void setGameStarted(boolean gameStarted) {isGameStarted = gameStarted;}
     public void setGameOnlineOver(boolean gameOnlineOver) {this.gameOnlineOver = gameOnlineOver;}
     public boolean isGameOnlineOver() {return gameOnlineOver;}
     public ArrayList<Card> getCardsOnTheGround() {return cardsOnTheGround;}
-    public void clearCardsOnTheGround(){cardsOnTheGround.clear();}
     public int getLengthHandOpponent(){return this.lengthHandOpponent;}
     public void setLengthHandOpponent(int i){this.lengthHandOpponent = i;}
     public boolean isMyTurn() {return myTurn;}
     public void setMyTurn(boolean myTurn) {this.myTurn = myTurn;}
     public void setSizeDeck(int sizeDeck) {this.sizeDeck = sizeDeck;}
     public int getSizeDeck() {return sizeDeck;}
+    public List<String> getNicknamesPlayer() {return nicknamesPlayer;}
 
-    public String getScorePlayerOne() {
-        return scorePlayerOne;
+    public List<String> getScoresPlayer() {
+        return scoresPlayer;
     }
 
-    public String getScorePlayerTwo() {
-        return scorePlayerTwo;
-    }
-
-    public void setScorePlayerOne(String scorePlayerOne) {
-        this.scorePlayerOne = scorePlayerOne;
-    }
-
-    public void setScorePlayerTwo(String scorePlayerTwo) {
-        this.scorePlayerTwo = scorePlayerTwo;
-    }
 }

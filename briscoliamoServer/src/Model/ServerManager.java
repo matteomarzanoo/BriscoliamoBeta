@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerManager {
-    private int port;
     private List<User> clients;
     private Game game = Game.getInstance();
     private List<String> logs;
 
     public ServerManager(int port) {
-        this.port = port;
         this.clients = new ArrayList<>();
         this.logs = new ArrayList<>();
     }
@@ -39,13 +37,13 @@ public class ServerManager {
     public void sendUpdatedHands() {
         sendMessageToUser(game.getHandPlayerOneToSend(), clients.get(1));
         sendMessageToUser(game.getHandPlayerTwoToSend(), clients.get(0));
+
         sendMessageToUser("!" + game.getHandPlayerOne().size(), clients.get(0));
         sendMessageToUser("?" + game.getHandPlayerTwo().size(), clients.get(1));
 
-        System.out.println(game.getHandPlayerOneToSend());
-        System.out.println(game.getHandPlayerTwoToSend());
-
-        broadcastMessage("&" + game.getScorePlayerOne() + " " + game.getScorePlayerTwo());
+        broadcastMessage(
+                "#" + game.getScorePlayerOne() + " " + game.getScorePlayerTwo()
+        );
     }
 
     public void broadcastMessage(String message) {

@@ -27,8 +27,7 @@ public class UserHandler implements Runnable {
             while (scanner.hasNextLine()) {
                 String receivedMessage = scanner.nextLine();
 
-               System.out.println("Received by client " + user.getNickname() + " : " + receivedMessage);
-//               System.out.println("Remaining cards in deck: " + game.getDeck().size());
+                System.out.println("Received by client " + user.getNickname() + " : " + receivedMessage);
 
                 receivedMessageManager.processMessage(receivedMessage);
             }

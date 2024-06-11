@@ -13,7 +13,7 @@ public class Card {
     }
     public int getValue() { return value;}
     public String getSuit() { return suit; }
-//    public String getCardPath() { return "/carte/" + value + "_" + suit + ".png"; }
+    //    public String getCardPath() { return "/carte/" + value + "_" + suit + ".png"; }
     @Override
     public String toString() { return value + "_" + suit; }
 

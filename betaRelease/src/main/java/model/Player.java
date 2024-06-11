@@ -4,28 +4,23 @@ import java.util.ArrayList;
 
 public class Player {
     
-    private static String playerName;
+    private static String nickname;
     private ArrayList<Card> playerHand;
 
-    public Player() { 
-        playerName = "defaultPlayer";
+    public Player() {
+        nickname = "defaultPlayer";
         playerHand = new ArrayList<>(3);
     }
-    
-    public String getName() { 
-        return playerName; 
-    }
-    
-    public ArrayList<Card> getHandPlayer() { 
-        return playerHand; 
+
+    public ArrayList<Card> getHandPlayer() {
+        return playerHand;
     }
 
-    public void addCardToHand(Card card) { 
-        playerHand.add(card); 
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setName(String name) {
-        playerName = name; 
+    public void setNickname(String name) {
+        nickname = name;
     }
-
 }

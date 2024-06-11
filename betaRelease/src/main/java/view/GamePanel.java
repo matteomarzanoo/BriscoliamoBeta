@@ -13,10 +13,7 @@ import java.util.Objects;
 
 public abstract class GamePanel extends JPanel {
     protected Player player;
-    protected boolean giocato;
     protected BufferedImage background;
-    protected static Color color1 = new Color(0x00, 0x64, 0x00);
-    protected static Color color2 = new Color(0x32, 0xCD, 0x32);
 
     public GamePanel(Player player) {
         background = ImageManager.getGamePanelBackgroundScreen();

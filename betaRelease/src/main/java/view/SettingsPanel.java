@@ -112,7 +112,7 @@ public class SettingsPanel extends JPanel
                 UsernameDialog(); 
             } else { 
             if (res == JOptionPane.YES_OPTION) {
-                player.setName(name); 
+                player.setNickname(name);
             } 
         }
         }

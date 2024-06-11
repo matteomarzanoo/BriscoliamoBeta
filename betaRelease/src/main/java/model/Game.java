@@ -17,7 +17,7 @@ public abstract class Game {
 
     public abstract void start();
     public abstract void distributeHand();
-    public abstract Card playedCardPlayer(int index);
+    public abstract void playedCardPlayer(int index);
     public abstract boolean isGameOver();
     public abstract void determineWinner();
 

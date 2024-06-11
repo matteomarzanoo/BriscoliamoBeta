@@ -104,11 +104,7 @@ public class BriscolaControllerOnline extends KeyAdapter
             public void mouseMoved(MouseEvent e)  {
                     for (int i = 0; i<game.getHandPlayer().size(); i++) {
                         Card card = game.getHandPlayer().get(i);
-                        if (card.contains(e.getPoint())) {
-                            card.setOver(true);
-                        } else {
-                            card.setOver(false);
-                        }
+                        card.setOver(card.contains(e.getPoint()));
                     }
                     gamePanel.repaint();
                 }

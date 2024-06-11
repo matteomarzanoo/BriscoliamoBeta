@@ -134,7 +134,7 @@ public class GameOffline extends Game {
     }
 
     public Card playedCardBot() {
-        if(!myTurn && bot.getHandBot().size() > 0){
+        if(!myTurn && !bot.getHandBot().isEmpty()){
             int index = random.nextInt(bot.getHandBot().size());
             Card currentCard = bot.getHandBot().remove(index);
             cardsOnTheGround.add(currentCard);

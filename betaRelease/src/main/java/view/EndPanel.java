@@ -112,7 +112,6 @@ public class EndPanel extends JPanel {
 
     }
     private void printNamePlayer(JPanel panel){
-        //stampa del nome del Giocatore
         JLabel nameP = new JLabel(game.getPlayer().getNickname(), SwingConstants.CENTER);
         nameP.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         nameP.setBounds(10, 40, Settings.END_WIDTH - 200, 70);

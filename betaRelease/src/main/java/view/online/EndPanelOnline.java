@@ -33,7 +33,7 @@ public class EndPanelOnline extends JPanel {
             );
             this.setBorder(compoundBorder);
 
-            this.setBorder(BorderFactory.createLineBorder(new Color(0xe8d107), 7));
+            this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 7));
         }
 
         Color gold = new Color(232, 209, 7);
@@ -60,7 +60,7 @@ public class EndPanelOnline extends JPanel {
         home.setContentAreaFilled(false);
         home.setFocusPainted(false);
         Border one = new LineBorder(gold, 2);
-        Border two = new LineBorder(Color.WHITE, 3);
+        Border two = new LineBorder(Color.BLACK, 3);
         Border union = new CompoundBorder(two, one);
         home.setBorder(union);
         home.addMouseListener(controller);
@@ -74,7 +74,7 @@ public class EndPanelOnline extends JPanel {
         playAgain.setContentAreaFilled(false);
         playAgain.setFocusPainted(false);
         Border one1 = new LineBorder(gold, 2);
-        Border two2 = new LineBorder(Color.WHITE, 3);
+        Border two2 = new LineBorder(Color.BLACK, 3);
         Border union3 = new CompoundBorder(two2, one1);
         playAgain.setBorder(union3);
         playAgain.addMouseListener(controller);

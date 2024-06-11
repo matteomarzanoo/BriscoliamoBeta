@@ -21,8 +21,7 @@ public class EndPanel extends JPanel {
     private BufferedImage background;
 
 
-    public EndPanel() 
-    {
+    public EndPanel() {
         this.game = GameOffline.getInstance();
         controller = new MainController();
         background =  ImageManager.getEndPanelBackground();
@@ -36,7 +35,6 @@ public class EndPanel extends JPanel {
             this.setBorder(union);
         }
         Color gold = new Color(232,209,7);
-        //Color gold = new Color(140, 103, 3);
 
         addLabelsToContentPanel(this, gold);
         addButtonsToPanel(this, gold);
@@ -46,6 +44,7 @@ public class EndPanel extends JPanel {
         repaint();
 
     }
+
     private void addLabelsToContentPanel(JPanel panel, Color gold) {
         printScore(panel);
         printNamePlayer(panel);
@@ -105,7 +104,6 @@ public class EndPanel extends JPanel {
 
     }
     private void printNameBot(JPanel panel){
-        //stampa del nome del Bot
         JLabel nameB = new JLabel(game.getBot().getBotName(), SwingConstants.CENTER);
         nameB.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         nameB.setBounds(200, 40, Settings.END_WIDTH - 230, 70);
@@ -114,7 +112,6 @@ public class EndPanel extends JPanel {
 
     }
     private void printNamePlayer(JPanel panel){
-        //stampa del nome del Giocatore
         JLabel nameP = new JLabel(game.getPlayer().getName(), SwingConstants.CENTER);
         nameP.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         nameP.setBounds(10, 40, Settings.END_WIDTH - 200, 70);
@@ -138,12 +135,12 @@ public class EndPanel extends JPanel {
         int width = getWidth();
         int centerX = width / 2;
 
-        GradientPaint gradientLeft = new GradientPaint(centerX, yPosition, gold, 0, yPosition, goldSfumato, false);
-        g2d.setPaint(gradientLeft);
+        GradientPaint left = new GradientPaint(centerX, yPosition, gold, 0, yPosition, goldSfumato, false);
+        g2d.setPaint(left);
         g2d.drawLine(centerX, yPosition, 0, yPosition);
 
-        GradientPaint gradientRight = new GradientPaint(centerX, yPosition, gold, width, yPosition, goldSfumato, false);
-        g2d.setPaint(gradientRight);
+        GradientPaint right = new GradientPaint(centerX, yPosition, gold, width, yPosition, goldSfumato, false);
+        g2d.setPaint(right);
         g2d.drawLine(centerX, yPosition, width, yPosition);}
     
     @Override

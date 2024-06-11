@@ -58,7 +58,6 @@ public class GameOffline extends Game {
         initializeDeck();
         distributeHand();
         briscola = chooseBriscola();
-        System.out.println("Briscola logic start");
 
         if(!myTurn)
         {
@@ -123,14 +122,10 @@ public class GameOffline extends Game {
 
     public void playedCardPlayer(int indexCurrentCardPlayer) {
         if(myTurn){
-            System.out.println("dimensione carte sul tavolo : " + cardsOnTheGround.size());
             if(cardsOnTheGround.size() != 2)
                 cardsOnTheGround.add(player.getHandPlayer().get(indexCurrentCardPlayer));
             changeTurn();
             player.getHandPlayer().remove(indexCurrentCardPlayer);
-        }
-        else{
-            System.out.println("NON TOCCA A ME GIOCARE");
         }
     }
 
@@ -201,16 +196,7 @@ public class GameOffline extends Game {
             }
         }
 
-        if(handWinner == 0)
-        {
-            System.out.println("Ha preso il bot");
-            myTurn = false;
-        }
-        else
-        {
-            System.out.println("ha preso il player");
-            myTurn = true;
-        }
+        myTurn = handWinner != 0;
     }
 
     public void changeTurn(){

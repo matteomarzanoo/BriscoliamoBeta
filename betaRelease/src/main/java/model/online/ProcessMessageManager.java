@@ -53,30 +53,20 @@ public class ProcessMessageManager {
                 handleScorePlayers(content);
                 break;
             default:
-                // Handle unexpected messages
-                System.out.println("Unexpected message: " + message);
                 break;
         }
 
         if (gameOnline.getHandPlayer().isEmpty() && !gameOnline.isGameOnlineOver()) {
             client.sendMessageToServer("$");
-            System.out.println("Sent the dollar sign as an indication that the game is over!");
         }
     }
 
     private void processGameMessage(String message, String content) {
-        if (message.equals("> game started")) {
-            handleGameStarted();
-        } else if (message.equals("> game finished")) {
-            handleGameFinished();
-        } else {
             handleNewHand(content);
-        }
     }
 
     private void handleScorePlayers(String message) {
         String[] scoresReceived = message.split(" ");
-        System.out.println(Arrays.asList(scoresReceived));
         gameOnline.getScoresPlayer().clear();
         gameOnline.getScoresPlayer().add(scoresReceived[0]);
         gameOnline.getScoresPlayer().add(scoresReceived[1]);
@@ -97,18 +87,8 @@ public class ProcessMessageManager {
         try {
             int sizeDeck = Integer.parseInt(message);
             gameOnline.setSizeDeck(sizeDeck);
-            System.out.println("size-deck: " + sizeDeck);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid size deck value: " + message);
         }
-    }
-
-    private void handleGameFinished() {
-        System.out.println("Game finished!");
-    }
-
-    private void handleGameStarted() {
-        System.out.println("Game started!");
     }
 
     private void handleTurnMessage(String message) {
@@ -118,7 +98,6 @@ public class ProcessMessageManager {
 
     private void handleNewHand(String handReceived) {
         try {
-            System.out.println("Updated hand received!");
             gameOnline.getHandPlayer().clear();
 
             String[] cardsInHand = handReceived.split(" ");
@@ -126,9 +105,7 @@ public class ProcessMessageManager {
                 gameOnline.getHandPlayer().add(Card.fromString(cardInHand));
             }
             client.getGamePanel().updatePlayerCardPositions();
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid card format in hand received: " + handReceived);
-        }
+        } catch (NumberFormatException e) {}
     }
 
     private void handleCardsOnTheGround(String cardsReceived) {
@@ -161,8 +138,6 @@ public class ProcessMessageManager {
         try {
             int lengthHandOpponent = Integer.parseInt(message);
             gameOnline.setLengthHandOpponent(lengthHandOpponent);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid hand opponent value: " + message);
-        }
+        } catch (NumberFormatException e) {}
     }
 }

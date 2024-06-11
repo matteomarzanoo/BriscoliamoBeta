@@ -44,7 +44,6 @@ public class Server {
 
 //                String nickname = String.valueOf(serverManager.getConnectedClients());
                 serverManager.getLogs().add("New client " + nickname + " - Host : " + client.getInetAddress().getHostAddress());
-                System.out.println(nickname);
 
                 User newUser = new User(client, nickname);
                 this.clients.add(newUser);
@@ -54,7 +53,6 @@ public class Server {
             }
 
             game.start();
-//            System.out.println("Starting the game...");
             serverManager.broadcastMessage("game started");
             serverManager.broadcastTurn();
             serverManager.broadcastMessage("-" + game.getBriscola().toString());
@@ -64,7 +62,6 @@ public class Server {
             );
             serverManager.sendUpdatedHands();
         } catch (IOException e) {
-//            System.err.println("Error opening server socket: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

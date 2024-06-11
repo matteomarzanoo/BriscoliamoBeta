@@ -20,17 +20,13 @@ public class MessageManager {
 
     public void processMessage(String message) {
         try {
-            // Handle special end game message regardless of turn
             if (message.equals("$")) {
                 game.setEndGamePlayer(game.getEndGamePlayer() + 1);
-                System.out.println("game.getEndGamePlayer() " + game.getEndGamePlayer());
-
                 if (game.getEndGamePlayer() > 1 && game.getHandPlayerOne().isEmpty() && game.getHandPlayerTwo().isEmpty()) {
                     game.setGameOver(true);
 
                     server.getServerManager().broadcastMessage("&" + game.getScorePlayerOne() + " " + game.getScorePlayerTwo());
                     server.getServerManager().broadcastMessage("+");
-                    System.out.println("la partita è finita ora");
                 }
                 return; // Exit after handling the special message
             }
@@ -64,10 +60,6 @@ public class MessageManager {
                 server.getServerManager().sendUpdatedHands();
                 server.getServerManager().broadcastMessage("^" + game.getDeck().size());
 
-//                System.out.println("vincitore precdente " + game.getVincitoreManoPrecedente());
-//                System.out.println("vincitore getCurrentWinner " + game.getCurrentWinner());
-//                System.out.println("vincitore getCurrentTurnIndex " + game.getCurrentTurnIndex());
-
                 //Changing turn
                 if(game.getCardsOnTheGrounds().size() == 1)
                 {
@@ -82,8 +74,6 @@ public class MessageManager {
             }
         } catch (Exception e) {
             server.getServerManager().removeUser(user);
-//            System.err.println("Error handling user: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }

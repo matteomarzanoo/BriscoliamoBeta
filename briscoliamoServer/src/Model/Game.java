@@ -178,18 +178,12 @@ public class Game
 
         handPlayerOne.forEach(card -> handPlayerOneToSend.append(card).append(" "));
         handPlayerTwo.forEach(card -> handPlayerTwoToSend.append(card).append(" "));
-
-//        System.out.println("Updated hands to send: ");
-//        System.out.println(handPlayerOneToSend);
-//        System.out.println(handPlayerTwoToSend);
     }
 
     public void updateCardsOnTheGrounds()
     {
         cardsOnTheGroundsToSend = new StringBuilder();
         cardsOnTheGrounds.forEach(card -> cardsOnTheGroundsToSend.append(card).append(" "));
-
-        System.out.println(cardsOnTheGroundsToSend);
     }
 
     public void attributeScore()
@@ -207,10 +201,6 @@ public class Game
                 playedCardPlayerTwo = cardsOnTheGrounds.get(0);
             }
             calculateScore(playedCardPlayerOne, playedCardPlayerTwo);
-
-            System.out.println("Score -----------------------------");
-            System.out.println("Score Player One: " + scorePlayerOne);
-            System.out.println("Score Player Two: " + scorePlayerTwo);
         }
     }
 

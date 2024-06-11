@@ -76,10 +76,6 @@ public class Client implements Runnable
         {
             output.println(message);
         }
-//        else
-//        {
-//            System.err.println("Output stream is not initialized.");
-//        }
     }
 
     @Override
@@ -89,11 +85,9 @@ public class Client implements Runnable
         {
             clientSocket = new Socket(this.host, this.port);
             receivedMessagesHandler = new ReceivedMessagesHandler(clientSocket.getInputStream(), gamePanel);
-//            System.out.println("Client successfully connected to server!");
 
             output = new PrintStream(clientSocket.getOutputStream());
 
-//            Ask and send for a nickname
             String nickname = gameOnline.getPlayer().getNickname();
             sendMessageToServer(nickname);
 
@@ -114,7 +108,6 @@ public class Client implements Runnable
             output.close();
             sc.close();
             disconnect();
-//            System.out.println("Client disconnected.");
         }
         catch (IOException e)
         {

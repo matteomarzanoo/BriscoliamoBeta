@@ -27,15 +27,11 @@ public class UserHandler implements Runnable {
             while (scanner.hasNextLine()) {
                 String receivedMessage = scanner.nextLine();
 
-                System.out.println("Received by client " + user.getNickname() + " : " + receivedMessage);
-
                 receivedMessageManager.processMessage(receivedMessage);
             }
             scanner.close();
         } catch (Exception e) {
             server.getServerManager().removeUser(user);
-            System.err.println("Error handling user: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }

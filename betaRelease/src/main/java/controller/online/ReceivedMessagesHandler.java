@@ -32,7 +32,6 @@ public class ReceivedMessagesHandler implements Runnable
             while (scanner.hasNextLine() && !game.isGameOnlineOver())
             {
                 String messageReceived = scanner.nextLine();
-                System.out.println("Received from server: " + messageReceived);
                 processMessageManager.processMessage(messageReceived);
                 gamePanel.repaint();
             }

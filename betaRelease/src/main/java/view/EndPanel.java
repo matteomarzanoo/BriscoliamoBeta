@@ -112,12 +112,8 @@ public class EndPanel extends JPanel {
 
     }
     private void printNamePlayer(JPanel panel){
-<<<<<<< HEAD
         //stampa del nome del Giocatore
         JLabel nameP = new JLabel(game.getPlayer().getNickname(), SwingConstants.CENTER);
-=======
-        JLabel nameP = new JLabel(game.getPlayer().getName(), SwingConstants.CENTER);
->>>>>>> origin/main
         nameP.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         nameP.setBounds(10, 40, Settings.END_WIDTH - 200, 70);
         nameP.setForeground(Color.BLACK);
@@ -140,23 +136,12 @@ public class EndPanel extends JPanel {
         int width = getWidth();
         int centerX = width / 2;
 
-<<<<<<< HEAD
-        // Creazione del gradiente dal centro verso sinistra
-        GradientPaint gradientLeft = new GradientPaint(centerX, yPosition, gold, 0, yPosition, goldSfumato, false);
-        g2d.setPaint(gradientLeft);
-        g2d.drawLine(centerX, yPosition, 0, yPosition);
-
-        // Creazione del gradiente dal centro verso destra
-        GradientPaint gradientRight = new GradientPaint(centerX, yPosition, gold, width, yPosition, goldSfumato, false);
-        g2d.setPaint(gradientRight);
-=======
         GradientPaint left = new GradientPaint(centerX, yPosition, gold, 0, yPosition, goldSfumato, false);
         g2d.setPaint(left);
         g2d.drawLine(centerX, yPosition, 0, yPosition);
 
         GradientPaint right = new GradientPaint(centerX, yPosition, gold, width, yPosition, goldSfumato, false);
         g2d.setPaint(right);
->>>>>>> origin/main
         g2d.drawLine(centerX, yPosition, width, yPosition);}
 
     @Override

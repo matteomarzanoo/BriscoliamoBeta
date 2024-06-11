@@ -50,9 +50,6 @@ public class GameOffline extends Game {
         return instance;
     }
 
-    public static GameOffline checkInstance() {
-        return instance;
-    }
 
     public void start() {
         initializeDeck();
@@ -107,9 +104,7 @@ public class GameOffline extends Game {
         }
     }
 
-    public Card getTempAddedCard() {
-        return tempAddedCard;
-    }
+
 
     public void addCard(ArrayList<Card> hand) {
         if (hand.size() < 3) {

@@ -22,5 +22,5 @@ public class Bot {
         int j = random.nextInt(animals.length);
         return adjectives[i] + animals[j];
     }
-    public void addCardToHand(Card card) { botHand.add(card);}
+
 }

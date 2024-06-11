@@ -124,13 +124,11 @@ public class GameOffline extends Game {
 
     public Card playedCardPlayer(int indexCurrentCardPlayer) {
         if(myTurn){
-            System.out.println("dimensione carte sul tavolo : " + cardsOnTheGround.size());
             if(cardsOnTheGround.size() != 2)
                 cardsOnTheGround.add(player.getHandPlayer().get(indexCurrentCardPlayer));
             changeTurn();
             return player.getHandPlayer().remove(indexCurrentCardPlayer);}
         else{
-            System.out.println("NON TOCCA A ME GIOCARE");
             return null;
         }
     }

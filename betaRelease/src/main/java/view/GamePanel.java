@@ -34,6 +34,7 @@ public abstract class GamePanel extends JPanel {
 
         int width = Settings.PLAYING_AREA_RIGHT_BORDER - Settings.PLAYING_AREA_LEFT_BORDER;
         int height = Settings.PLAYING_AREA_DOWN_BORDER - Settings.PLAYING_AREA_UP_BORDER;
+        g2d.setColor(Color.WHITE);
         g2d.drawRect(x, y, width, height);
     }
 

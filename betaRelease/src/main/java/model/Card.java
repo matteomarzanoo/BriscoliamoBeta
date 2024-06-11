@@ -55,8 +55,8 @@ public class Card {
     }
     
     public boolean inPlayArea() { 
-        return (this.x >= Settings.PLAYING_AREA_LEFT_BORDER && this.x <= Settings.PLAYING_AREA_RIGHT_BORDER) && 
-        (this.y >= Settings.PLAYING_AREA_UP_BORDER && this.y <= Settings.PLAYING_AREA_DOWN_BORDER);
+        return (this.x + Settings.CARD_WIDTH/2 >= Settings.PLAYING_AREA_LEFT_BORDER && this.x + Settings.CARD_WIDTH/2 <= Settings.PLAYING_AREA_RIGHT_BORDER) &&
+        (this.y + Settings.CARD_HEIGHT/2  >= Settings.PLAYING_AREA_UP_BORDER && this.y + Settings.CARD_HEIGHT/2 <= Settings.PLAYING_AREA_DOWN_BORDER);
     }
     
     public Point getPointCard() {

@@ -22,7 +22,6 @@ public class EndPanelOnline extends JPanel {
 
         if (game.isGameOnlineOver()) {
             game.getCardsOnTheGround().clear();
-            //if (game.getImWinner()) {
             if (true) {
                 this.setBorder(BorderFactory.createLineBorder(new Color(0xe8d107), 7));
             } else {

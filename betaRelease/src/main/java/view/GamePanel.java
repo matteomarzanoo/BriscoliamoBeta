@@ -52,7 +52,6 @@ public abstract class GamePanel extends JPanel {
         try {
             return new ImageIcon(Objects.requireNonNull(getClass().getResource(path))).getImage();
         } catch (Exception e) {
-            System.err.println("Failed to load image: " + path);
             return null;
         }
     }

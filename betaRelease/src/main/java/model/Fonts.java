@@ -15,10 +15,11 @@ public class Fonts
     private static Font settingsRightPanel;
     private static Font statisticsPanel;
     private static Font endpanelscores;
+    
     static{
         try{
-            logo = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/fonts/Playfair_Display/static/PlayfairDisplay-BlackItalic.ttf")).deriveFont(128f);
-            menupanel = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/fonts/Montserrat/static/Montserrat-ExtraBoldItalic.ttf")).deriveFont(26f);
+            logo = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/fonts/Playfair_Display/static/PlayfairDisplay-BlackItalic.ttf")).deriveFont(120f);
+            menupanel = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/fonts/Montserrat/static/Montserrat-ExtraBoldItalic.ttf")).deriveFont(28f);
             gamepanel = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/fonts/Montserrat/static/Montserrat-ExtraBold.ttf")).deriveFont(17f);
             endpanel = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/fonts/Montserrat/static/Montserrat-MediumItalic.ttf")).deriveFont(24f);
             endpanelbuttons = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/fonts/Montserrat/static/Montserrat-ExtraBoldItalic.ttf")).deriveFont(24f);

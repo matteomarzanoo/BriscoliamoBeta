@@ -21,7 +21,6 @@ public abstract class Game {
     public abstract boolean isGameOver();
     public abstract void determineWinner();
 
-    // Getters Methods
     public Card getBriscola() { return briscola; }
     public ArrayList<Card> getHandPlayer() { return this.player.getHandPlayer(); }
     public Player getPlayer() { return player; }

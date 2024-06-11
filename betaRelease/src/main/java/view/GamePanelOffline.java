@@ -31,7 +31,6 @@ public class GamePanelOffline extends GamePanel {
             drawBriscolaAndDeck(g2d);
             drawScores(g2d);
             drawPlayerHand(g2d);
-            //drawArea(g2d);
             updatePlayerCardPositions();
            if (gameOffline.getCurrentScorePlayer() > 0){
                drawRectangle(g2d);

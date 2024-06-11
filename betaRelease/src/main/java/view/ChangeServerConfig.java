@@ -25,7 +25,7 @@ public class ChangeServerConfig extends JPanel {
              * Implementare il cambio server qui
              */
         } else {
-            JOptionPane.showConfirmDialog(null, "Action Aborted", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Action Aborted", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
 }

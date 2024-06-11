@@ -34,7 +34,6 @@ public class GameOnline
         throw new IndexOutOfBoundsException("Indice non valido per la carta giocata.");
     }
 
-    /*Funzione singleton che servirà per creare una sola volta il game. Se richiamato, il costruttore ritornerà la stessa istanza*/
     public static GameOnline getInstance()
     {
         if (instance == null)
@@ -52,7 +51,6 @@ public class GameOnline
         return instance;
     }
 
-    // Getters Methods
     public Card getBriscola() { return briscola; }
     public ArrayList<Card> getHandPlayer(){ return this.player.getHandPlayer(); }
     public Player getPlayer() { return player; }

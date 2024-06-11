@@ -27,21 +27,7 @@ public class SettingsPanel extends JPanel
         sound = Sound.getInstance();
         player = new Player();
         setLayout(new BorderLayout());
-        back();
         addSettings();
-    }
-
-    private void back() {
-        JButton back = new JButton("←");
-        back.setFont(Fonts.getMenuPanel());
-        back.setOpaque(false);
-        back.setContentAreaFilled(false); 
-        back.setBorderPainted(false); 
-        back.setFocusPainted(false); 
-        back.setForeground(Color.WHITE);
-        back.setHorizontalAlignment(SwingConstants.LEFT);
-        back.addMouseListener(controller);
-        add(back, BorderLayout.NORTH);
     }
 
     private void addSettings() {
@@ -56,30 +42,29 @@ public class SettingsPanel extends JPanel
         };
         intermediate.setLayout(new BoxLayout(intermediate, BoxLayout.X_AXIS));
 
-        JPanel leftIntermediate = new JPanel(new GridLayout(3,1));
-        JPanel rightIntermediate = new JPanel(new GridLayout(3,1));
-        leftIntermediate.setOpaque(false);
-        rightIntermediate.setOpaque(false);
-        addSettingsName(leftIntermediate);
-        addButtonsSetting(rightIntermediate);
-        
-        intermediate.add(leftIntermediate);
-        intermediate.add(rightIntermediate);
+        JPanel left = new JPanel(new GridLayout(3,1));
+        left.setOpaque(false);
+        addSettingsName(left);
+
+        JPanel right = new JPanel(new GridLayout(3,1));
+        right.setOpaque(false);
+        addButtonsSetting(right);
+
+        intermediate.add(left);
+        intermediate.add(right);
         add(intermediate);
     }
 
-    private void addSettingsName(JPanel leftPanel) {
+    private void addSettingsName(JPanel panel) {
         String[] settings = {"Music", "Username", "Server"};
         for (String names : settings){
-            JButton jButton = new JButton(names);
-            jButton.setForeground(new Color(229,184,11));
-            jButton.setFont(Fonts.getSettingsLeftPanel());
-            jButton.setOpaque(false);
-            jButton.setContentAreaFilled(false);
-            jButton.setBorderPainted(false);
-            jButton.setFocusPainted(false);
-            jButton.setHorizontalAlignment(SwingConstants.CENTER);
-            leftPanel.add(jButton);
+            JLabel label = new JLabel();
+            label.setText(names);
+            label.setForeground(new Color(229,184,11));
+            label.setFont(Fonts.getSettingsLeftPanel());
+            label.setOpaque(false);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            panel.add(label);
         }
     }
 
@@ -91,25 +76,29 @@ public class SettingsPanel extends JPanel
         musicSlider.addChangeListener(e -> currentOSTVolume = sound.ostHandler(musicSlider.getValue()));
         rightPanel.add(musicSlider);
 
-        JButton user = new JButton("Change Username");
-        user.setFont(Fonts.getSettingsRightPanel());
-        user.setOpaque(false); 
-        user.setContentAreaFilled(false);
-        user.setBorderPainted(false);
-        user.setFocusPainted(false);
-        user.setForeground(Color.WHITE);
-        user.addMouseListener(controller);
-        rightPanel.add(user);
+        String[] text = {"←", "Change Username", "Change Settings"};
+        for (String texts : text) {
+            buttons(texts, rightPanel);
+        }
+    }
 
-        JButton serverButton = new JButton("Change Settings");
-        serverButton.setFont(Fonts.getSettingsRightPanel());
-        serverButton.setOpaque(false); 
-        serverButton.setContentAreaFilled(false); 
-        serverButton.setBorderPainted(false); 
-        serverButton.setFocusPainted(false); 
-        serverButton.setForeground(Color.WHITE);
-        serverButton.addMouseListener(controller);
-        rightPanel.add(serverButton);
+    private void buttons(String name, JPanel panel) {
+        JButton button = new JButton(name);
+        button.setFont(Fonts.getSettingsRightPanel());
+        button.setOpaque(false); 
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setForeground(Color.WHITE);
+        button.setHorizontalAlignment(SwingConstants.CENTER);
+        button.addMouseListener(controller);
+
+        if (name.equals("←")) {
+            button.setHorizontalAlignment(SwingConstants.LEFT);
+            add(button, BorderLayout.NORTH);
+        } else {
+            panel.add(button);
+        }
     }
 
     public void UsernameDialog() {

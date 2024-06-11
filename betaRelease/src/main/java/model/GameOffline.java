@@ -38,8 +38,7 @@ public class GameOffline extends Game {
         isFirstPlayer = !isDealerPlayer;
         myTurn = !isDealerPlayer;
 
-        if(myTurn)
-        {
+        if(myTurn) {
             handWinner = 1;
         }
 
@@ -63,8 +62,7 @@ public class GameOffline extends Game {
         distributeHand();
         briscola = chooseBriscola();
 
-        if(!myTurn)
-        {
+        if(!myTurn) {
             playedCardBot();
         }
     }

@@ -10,76 +10,81 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
-public class GamePanelOnline extends JPanel
-{
-    private JLabel labelTurn = new JLabel("WAITING FOR ANOTHER PLAYER...");
+public class GamePanelOnline extends JPanel {
+    private String statusString = "Waiting for another player...";
     private EndPanelOnline endPanelOnline;
     private BriscolaControllerOnline controller;
-    private GameOnline game;
+    private GameOnline gameOnline;
     private Player player;
     private boolean giocato;
 
-    public GamePanelOnline()
-    {
-        this.game = GameOnline.getInstance();
-        this.player = game.getPlayer();
+    public GamePanelOnline() {
+        this.gameOnline = GameOnline.getInstance();
+        this.player = gameOnline.getPlayer();
         setController(controller);
         setVisible(true);
         setFocusable(true);
         updatePlayerCardPositions();
-        add(labelTurn);
     }
 
-    private void draw(Graphics2D g2d)
-    {
-        try
-        {
+    private void draw(Graphics2D g2d) {
+        try {
             drawSecondPlayerHand(g2d);
             drawBriscolaAndDeck(g2d);
             drawCardsOnTheGround(g2d);
             drawPlayerHand(g2d);
-            //drawArea(g2d);
+            drawScores(g2d);
             updatePlayerCardPositions();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void drawSecondPlayerHand(Graphics2D g2d)
-    {
-        for (int i = 0; i < game.getLengthHandOpponent(); i++)
-        {
+    private void drawScores(Graphics2D g2d) {
+        g2d.setColor(Color.WHITE);
+        if (!gameOnline.isGameOnlineOver()) {
+            g2d.setFont(Fonts.getGamePanel());
+
+            // System.out.println(gameOnline.getScoresPlayer());
+
+            if (!gameOnline.getNicknamesPlayer().isEmpty() && gameOnline.getNicknamesPlayer().size() >= 2)
+            {
+                g2d.drawString(gameOnline.getNicknamesPlayer().getFirst() + " : " + gameOnline.getScoresPlayer().getFirst(), 565, 450);
+                g2d.drawString(gameOnline.getNicknamesPlayer().getLast() + " : " + gameOnline.getScoresPlayer().getLast(), 565, 480);
+            }
+
+            if (gameOnline.getSizeDeck() > 0) {
+                g2d.drawString(String.valueOf(gameOnline.getSizeDeck()), 700, 360);
+            }
+        }
+    }
+
+    private void drawSecondPlayerHand(Graphics2D g2d) {
+        for (int i = 0; i < gameOnline.getLengthHandOpponent(); i++) {
             Image cardImage = loadCardImage("/carte/Dorso3.png");
             g2d.drawImage(cardImage, 150 + 125 * i, 25, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
         }
     }
+
     public void updatePlayerCardPositions() {
-        int yPosition = Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT - 60;  // Imposta la posizione Y delle carte nella parte inferiore del pannello con un piccolo margine dal bordo inferiore
+        int yPosition = Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT - 60;
 
         for (int i = 0; i < player.getHandPlayer().size(); i++) {
             Card card = player.getHandPlayer().get(i);
-            int xPosition = 150 + 125 * i;  // Calcola la posizione X delle carte
-            card.setX(xPosition);  // Aggiorna la posizione X della carta
-            card.setY(yPosition);  // Aggiorna la posizione Y della carta
+            int xPosition = 150 + 125 * i;
+            card.setX(xPosition);
+            card.setY(yPosition);
         }
     }
 
-    private void drawPlayerHand(Graphics2D g2d)
-    {
-        if (player.getHandPlayer().isEmpty() && !giocato)
-        {
-            for (int i = 0; i < 3; i++)
-            {
+    private void drawPlayerHand(Graphics2D g2d) {
+        if (player.getHandPlayer().isEmpty() && !giocato) {
+            for (int i = 0; i < player.getHandPlayer().size(); i++) {
                 Image cardImage = loadCardImage("/carte/Dorso3.png");
                 g2d.drawImage(cardImage, 150 + 125 * i, 395, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
             }
-        }
-        else
-        {
-            for (int i = 0; i < player.getHandPlayer().size(); i++)
-            {
+        } else {
+            for (int i = 0; i < player.getHandPlayer().size(); i++) {
                 Card card = player.getHandPlayer().get(i);
                 Image cardImage = loadCardImage(card.getCardPath());
 
@@ -89,38 +94,35 @@ public class GamePanelOnline extends JPanel
                     int newCardWidth = (int) (Settings.CARD_WIDTH * 1.15);
                     int newCardHeight = (int) (Settings.CARD_HEIGHT * 1.15);
                     g2d.drawImage(cardImage, newX, newY, newCardWidth, newCardHeight, null);
+                } else if (card.getX() < 0 && card.getY() < 0) {
+                    g2d.drawImage(cardImage, 0, 0, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                } else if (card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15 && card.getY() < 0) {
+                    g2d.drawImage(cardImage, Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15, 0, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                } else if (card.getX() < 0 && card.getY() > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT - 35) {
+                    g2d.drawImage(cardImage, 0, Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT - 35, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                } else if (card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15 && card.getY() > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT - 35) {
+                    g2d.drawImage(cardImage, Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15, Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT - 35, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                } else if (card.getY() < 0) {
+                    g2d.drawImage(cardImage, card.getX(), 0, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                } else if (card.getX() < 0) {
+                    g2d.drawImage(cardImage, 0, card.getY(), Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                } else if (card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15) {
+                    g2d.drawImage(cardImage, Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15, card.getY(), Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                } else if (card.getY() > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT - 35) {
+                    g2d.drawImage(cardImage, card.getX(), Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT - 35, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
+                } else {
+                    g2d.drawImage(cardImage, card.getX(), card.getY(), Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
                 }
-                //Gestisco tutti i casi in cui le carte si trovano sui bordi del frame per non poterle portare fuori dal pannello
-                //Angolo alto a sinistra
-                else if (card.getX()<0 && card.getY()<0){g2d.drawImage(cardImage, 0, 0, Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
-                //Anglo alto a destra
-                else if (card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15 && card.getY() <0) {g2d.drawImage(cardImage, Settings.FRAME_WIDTH- Settings.CARD_WIDTH - 15, 0, Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
-                //Angolo basso a sinistra
-                else if (card.getX() <0 && card.getY() > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT-35 ) {g2d.drawImage(cardImage, 0, Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35, Settings.CARD_WIDTH , Settings.CARD_HEIGHT , null);}
-                //Angolo basso a destra
-                else if(card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15 && card.getY() > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35){g2d.drawImage(cardImage, Settings.FRAME_WIDTH - Settings.CARD_WIDTH - 15, Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35 , Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
-                //Bordo Superiore
-                else if(card.getY() < 0){g2d.drawImage(cardImage, card.getX(), 0, Settings.CARD_WIDTH , Settings.CARD_HEIGHT , null);}
-                //Bordo Sinistro
-                else if (card.getX() < 0){g2d.drawImage(cardImage, 0, card.getY(), Settings.CARD_WIDTH , Settings.CARD_HEIGHT , null);}
-                //Bordo Destro
-                else if(card.getX() > Settings.FRAME_WIDTH - Settings.CARD_WIDTH -15 ){g2d.drawImage(cardImage, Settings.FRAME_WIDTH - Settings.CARD_WIDTH -15, card.getY(), Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
-                //Bordo Inferiore
-                else if (card.getY()  > Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35 ){g2d.drawImage(cardImage, card.getX(), Settings.FRAME_HEIGHT - Settings.CARD_HEIGHT -35 , Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
-                //Tutti i casi in cui la carta si trova all'interno del pannello
-                else {g2d.drawImage(cardImage, card.getX(), card.getY(), Settings.CARD_WIDTH , Settings.CARD_HEIGHT, null);}
             }
             giocato = true;
         }
     }
 
-    private void drawBriscolaAndDeck(Graphics2D g)
-    {
-        if(game.getBriscola() != null && game.getSizeDeck() != 0)
-        {
-            Image bri = loadCardImage(game.getBriscola().getCardPath());
+    private void drawBriscolaAndDeck(Graphics2D g) {
+        if (gameOnline.getBriscola() != null && gameOnline.getSizeDeck() != 0) {
+            Image bri = loadCardImage(gameOnline.getBriscola().getCardPath());
             Graphics2D g2d = (Graphics2D) g.create();
-            g2d.rotate(Math.toRadians(270), (int)(Settings.CARD_WIDTH /2), (int) (Settings.CARD_HEIGHT/2));
+            g2d.rotate(Math.toRadians(270), (int) (Settings.CARD_WIDTH / 2), (int) (Settings.CARD_HEIGHT / 2));
             g2d.drawImage(bri, -180, 580, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
             g2d.dispose();
 
@@ -129,20 +131,17 @@ public class GamePanelOnline extends JPanel
         }
     }
 
-    private void drawCardsOnTheGround(Graphics g)
-    {
-        if (!game.getCardsOnTheGround().isEmpty())
-        {
-            for (int i = 0; i < game.getCardsOnTheGround().size(); i++)
-            {
-                Card card = game.getCardsOnTheGround().get(i);
+    private void drawCardsOnTheGround(Graphics g) {
+        if (!gameOnline.getCardsOnTheGround().isEmpty()) {
+            for (int i = 0; i < gameOnline.getCardsOnTheGround().size(); i++) {
+                Card card = gameOnline.getCardsOnTheGround().get(i);
                 Image cardImage = loadCardImage(card.getCardPath());
                 g.drawImage(cardImage, 200 + 150 * i, 204, Settings.CARD_WIDTH, Settings.CARD_HEIGHT, null);
             }
         }
     }
 
-    private void drawArea(Graphics2D g2d){
+    private void drawArea(Graphics2D g2d) {
         int x = Settings.PLAYING_AREA_LEFT_BORDER;
         int y = Settings.PLAYING_AREA_UP_BORDER;
 
@@ -152,56 +151,66 @@ public class GamePanelOnline extends JPanel
         g2d.drawRect(x, y, width, height);
     }
 
-    private Image loadCardImage(String path)
-    {
-        try
-        {
+    private Image loadCardImage(String path) {
+        try {
             return new ImageIcon(Objects.requireNonNull(getClass().getResource(path))).getImage();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.err.println("Failed to load image: " + path);
             return null;
         }
     }
 
     @Override
-    protected void paintComponent(Graphics g)
-    {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2d = getGraphics2D((Graphics2D) g);
 
-
-        if(game.getCardsOnTheGround().size() == 2)
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(Fonts.getGamePanel());
+        if(gameOnline.getLengthHandOpponent() == -1)
         {
-            repaint();
-        }
-
-        if (game.isGameOnlineOver())
-        {
-            this.endPanelOnline = new EndPanelOnline();
-            endPanelOnline.setBounds(220,160, Settings.END_WIDTH, Settings.END_HEIGHT);
-            this.add(endPanelOnline);
-            remove(labelTurn);
-            GameOffline.getInstance().reset();
-            repaint();
+            g2d.drawString(statusString, 270, Settings.FRAME_HEIGHT / 2);
         }
         else
         {
-            if(game.getLengthHandOpponent() != -1)
-                updateLabelTurn(game.isMyTurn() ? "YOUR TURN" : "WAIT FOR YOUR TURN");
-            labelTurn.setVisible(true);
+            statusString = "";
+        }
+
+
+        if (gameOnline.getCardsOnTheGround().size() == 2) {
+            repaint();
+        }
+
+        if (gameOnline.isGameOnlineOver())
+        {
+
+            this.endPanelOnline = new EndPanelOnline();
+            endPanelOnline.setBounds(220, 160, Settings.END_WIDTH, Settings.END_HEIGHT);
+            this.add(endPanelOnline);
+            GameOffline.getInstance().reset();
+            repaint();
+        }
+        else if (gameOnline.getLengthHandOpponent() != -1 )
+        {
+            if(gameOnline.isMyTurn())
+            {
+                g2d.drawString("Your turn", 565, 40);
+            }
+            else
+            {
+                g2d.drawString("Wait for your turn", 565, 40);
+            }
         }
         draw(g2d);
     }
 
     private static Graphics2D getGraphics2D(Graphics2D g) {
-        Color color1 =  new Color(0x00, 0x64, 0x00);
-        Color color2 =  new Color(0x32, 0xCD, 0x32);
+        Color color1 = new Color(0x00, 0x64, 0x00);
+        Color color2 = new Color(0x32, 0xCD, 0x32);
 
-        Point2D center = new Point2D.Float(Settings.FRAME_WIDTH / 2.0f - 80, Settings.FRAME_HEIGHT/ 2.0f);
-        float radius = Math.min(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT)/2.0f;
+        Point2D center = new Point2D.Float(Settings.FRAME_WIDTH / 2.0f - 80, Settings.FRAME_HEIGHT / 2.0f);
+        float radius = Math.min(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT) / 2.0f;
 
         RadialGradientPaint paint = new RadialGradientPaint(center, radius, new float[]{0f, 1f}, new Color[]{color2, color1});
 
@@ -210,15 +219,9 @@ public class GamePanelOnline extends JPanel
         return g;
     }
 
-    public void setController(BriscolaControllerOnline controller)
-    {
+    public void setController(BriscolaControllerOnline controller) {
         this.controller = controller;
         addKeyListener(controller);
         requestFocusInWindow();
-    }
-
-    public void updateLabelTurn(String message)
-    {
-        this.labelTurn.setText(message);
     }
 }

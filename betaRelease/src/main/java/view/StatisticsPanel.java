@@ -84,7 +84,7 @@ public class StatisticsPanel extends JPanel
         label.setOpaque(false);
 
         if (name.equals("Welcome back ")){
-            label.setText(name + String.valueOf(player.getName()));
+            label.setText(name + player.getNickname());
             label.setFont(Fonts.getStatisticsPanel());
         } else {
             label.setText(name + String.valueOf(score));

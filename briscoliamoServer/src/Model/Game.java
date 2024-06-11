@@ -71,10 +71,6 @@ public class Game
         return currentWinner;
     }
 
-    public void setCurrentWinner(int currentWinner) {
-        this.currentWinner = currentWinner;
-    }
-
     public int getCurrentTurnIndex()
     {
         return currentTurnIndex;
@@ -118,15 +114,6 @@ public class Game
     public List<Card> getDeck()
     {
         return deck;
-    }
-
-    public int getVincitoreManoPrecedente()
-    {
-        return vincitoreManoPrecedente;
-    }
-
-    public void setVincitoreManoPrecedente(int vincitoreManoPrecedente) {
-        this.vincitoreManoPrecedente = vincitoreManoPrecedente;
     }
 
     public List<Card> getCardsOnTheGrounds()
@@ -192,9 +179,9 @@ public class Game
         handPlayerOne.forEach(card -> handPlayerOneToSend.append(card).append(" "));
         handPlayerTwo.forEach(card -> handPlayerTwoToSend.append(card).append(" "));
 
-        System.out.println("Updated hands to send: ");
-        System.out.println(handPlayerOneToSend);
-        System.out.println(handPlayerTwoToSend);
+//        System.out.println("Updated hands to send: ");
+//        System.out.println(handPlayerOneToSend);
+//        System.out.println(handPlayerTwoToSend);
     }
 
     public void updateCardsOnTheGrounds()

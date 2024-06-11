@@ -95,7 +95,7 @@ public class GamePanelOffline extends GamePanel {
         if (!gameOffline.isGameOver()) {
             g2d.setFont(Fonts.getGamePanel());
             g2d.drawString(bot.getBotName() + " : " + gameOffline.getScoreBot(), 565, 450);
-            g2d.drawString(player.getName() + " : " + gameOffline.getScorePlayer(), 565, 480);
+            g2d.drawString(player.getNickname() + " : " + gameOffline.getScorePlayer(), 565, 480);
 
             if(! gameOffline.getDeck().isEmpty()) {
                 g2d.drawString("" + gameOffline.getDeck().size(), 700, 360);

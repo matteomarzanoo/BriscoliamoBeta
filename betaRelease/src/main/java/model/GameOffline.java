@@ -1,12 +1,8 @@
 package model;
 
-import org.example.Settings;
-
 import model.scores.OfflineScore;
 
 import java.util.*;
-import java.awt.Color;
-import java.awt.Point;
 
 public class GameOffline extends Game {
     private static GameOffline instance = null;
@@ -38,7 +34,8 @@ public class GameOffline extends Game {
         isFirstPlayer = !isDealerPlayer;
         myTurn = !isDealerPlayer;
 
-        if(myTurn) {
+        if(myTurn)
+        {
             handWinner = 1;
         }
 
@@ -61,8 +58,10 @@ public class GameOffline extends Game {
         initializeDeck();
         distributeHand();
         briscola = chooseBriscola();
+        System.out.println("Briscola logic start");
 
-        if(!myTurn) {
+        if(!myTurn)
+        {
             playedCardBot();
         }
     }
@@ -122,14 +121,16 @@ public class GameOffline extends Game {
         }
     }
 
-    public Card playedCardPlayer(int indexCurrentCardPlayer) {
+    public void playedCardPlayer(int indexCurrentCardPlayer) {
         if(myTurn){
+            System.out.println("dimensione carte sul tavolo : " + cardsOnTheGround.size());
             if(cardsOnTheGround.size() != 2)
                 cardsOnTheGround.add(player.getHandPlayer().get(indexCurrentCardPlayer));
             changeTurn();
-            return player.getHandPlayer().remove(indexCurrentCardPlayer);}
+            player.getHandPlayer().remove(indexCurrentCardPlayer);
+        }
         else{
-            return null;
+            System.out.println("NON TOCCA A ME GIOCARE");
         }
     }
 
@@ -201,9 +202,14 @@ public class GameOffline extends Game {
             }
         }
 
-        if(handWinner == 0) {
+        if(handWinner == 0)
+        {
+            System.out.println("Ha preso il bot");
             myTurn = false;
-        } else {
+        }
+        else
+        {
+            System.out.println("ha preso il player");
             myTurn = true;
         }
     }

@@ -9,17 +9,11 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class ServerController implements ActionListener {
-    private Game game;
     private ServerPanel serverPanel;
     private Server server;
 
     public ServerController(ServerPanel serverPanel) {
         this.serverPanel = serverPanel;
-        this.game = Game.getInstance();
-    }
-
-    public Server getServer() {
-        return server;
     }
 
     @Override

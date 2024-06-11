@@ -14,12 +14,17 @@ public class Client implements Runnable
     private int port;
     private Socket clientSocket;
     private PrintStream output;
+    private GameOnline gameOnline;
     private GamePanelOnline gamePanel;
     private ReceivedMessagesHandler receivedMessagesHandler;
 
     public static Client instance = null;
 
-    public Client() {}
+    public Client() {
+        gameOnline = GameOnline.getInstance();
+        host = "127.0.0.1";
+        port = 8888;
+    }
 
     public static Client getInstance()
     {
@@ -43,6 +48,22 @@ public class Client implements Runnable
         return receivedMessagesHandler;
     }
 
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
     public void setConfiguration(String host, int port)
     {
         this.host = host;
@@ -55,10 +76,10 @@ public class Client implements Runnable
         {
             output.println(message);
         }
-        else
-        {
-            System.err.println("Output stream is not initialized.");
-        }
+//        else
+//        {
+//            System.err.println("Output stream is not initialized.");
+//        }
     }
 
     @Override
@@ -66,11 +87,15 @@ public class Client implements Runnable
     {
         try
         {
-            clientSocket = new Socket(host, port);
+            clientSocket = new Socket(this.host, this.port);
             receivedMessagesHandler = new ReceivedMessagesHandler(clientSocket.getInputStream(), gamePanel);
-            System.out.println("Client successfully connected to server!");
+//            System.out.println("Client successfully connected to server!");
 
             output = new PrintStream(clientSocket.getOutputStream());
+
+//            Ask and send for a nickname
+            String nickname = gameOnline.getPlayer().getNickname();
+            sendMessageToServer(nickname);
 
             Scanner sc = new Scanner(System.in);
 
@@ -89,7 +114,7 @@ public class Client implements Runnable
             output.close();
             sc.close();
             disconnect();
-            System.out.println("Client disconnected.");
+//            System.out.println("Client disconnected.");
         }
         catch (IOException e)
         {

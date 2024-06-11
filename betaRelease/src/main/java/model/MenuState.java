@@ -64,17 +64,13 @@ public class MenuState {
                 BriscolaControllerOnline briscolaControllerOnline = new BriscolaControllerOnline(gamePanelOnline);
                 gamePanelOnline.setController(briscolaControllerOnline);
 
-                client.setConfiguration("127.0.0.1", 8888);
+                client.setConfiguration(client.getHost(), client.getPort());
                 client.setGamePanel(gamePanelOnline);
-                System.out.println("Client start");
 
                 new Thread(client).start();
             }
             case "Rematch" -> {
-                GamePanelOnline gamePanelOnline = new GamePanelOnline();
-                MenuPanel.getInstance().updateView(gamePanelOnline);
-                BriscolaControllerOnline briscolaControllerOnline = new BriscolaControllerOnline(gamePanelOnline);
-                gamePanelOnline.setController(briscolaControllerOnline);
+                home();
             }
             case "Exit" -> exit();
             case "←" -> home();

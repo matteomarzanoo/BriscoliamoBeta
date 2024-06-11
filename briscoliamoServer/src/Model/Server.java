@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -36,8 +37,14 @@ public class Server {
             while (serverManager.getConnectedClients() < 2) {
                 Socket client = serverSocket.accept();
 
-                String nickname = String.valueOf(serverManager.getConnectedClients());
+                // get nickname of newUser
+                String nickname = (new Scanner( client.getInputStream() )).nextLine();
+                nickname = nickname.replace(",", ""); //  ',' use for serialisation
+                nickname = nickname.replace(" ", "_");
+
+//                String nickname = String.valueOf(serverManager.getConnectedClients());
                 serverManager.getLogs().add("New client " + nickname + " - Host : " + client.getInetAddress().getHostAddress());
+                System.out.println(nickname);
 
                 User newUser = new User(client, nickname);
                 this.clients.add(newUser);
@@ -47,13 +54,17 @@ public class Server {
             }
 
             game.start();
-            System.out.println("Starting the game...");
+//            System.out.println("Starting the game...");
             serverManager.broadcastMessage("game started");
             serverManager.broadcastTurn();
             serverManager.broadcastMessage("-" + game.getBriscola().toString());
+            serverManager.broadcastMessage("=" + clients.getFirst() + " " + clients.get(1));
+            serverManager.broadcastMessage(
+                    "#" + game.getScorePlayerOne() + " " + game.getScorePlayerTwo()
+            );
             serverManager.sendUpdatedHands();
         } catch (IOException e) {
-            System.err.println("Error opening server socket: " + e.getMessage());
+//            System.err.println("Error opening server socket: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

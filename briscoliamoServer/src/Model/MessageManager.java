@@ -25,7 +25,7 @@ public class MessageManager {
                 game.setEndGamePlayer(game.getEndGamePlayer() + 1);
                 System.out.println("game.getEndGamePlayer() " + game.getEndGamePlayer());
 
-                if (game.getEndGamePlayer() == 2 && game.getHandPlayerOne().isEmpty() && game.getHandPlayerTwo().isEmpty()) {
+                if (game.getEndGamePlayer() > 1 && game.getHandPlayerOne().isEmpty() && game.getHandPlayerTwo().isEmpty()) {
                     game.setGameOver(true);
 
                     server.getServerManager().broadcastMessage("&" + game.getScorePlayerOne() + " " + game.getScorePlayerTwo());
@@ -40,11 +40,6 @@ public class MessageManager {
                 // We received a card from one of the clients
                 if (isMessageACard(message)) {
                     Card card = Card.fromString(message);
-
-//                    // If playing a card and there are no other cards on the table, become the first player
-//                    if (game.getCardsOnTheGrounds().isEmpty()) {
-//                        game.setFirstPlayer(Integer.parseInt(user.getNickname()));
-//                    }
 
                     // Remove the played card from the corresponding client's hand
                     game.getHandPlayerOne().remove(card);
@@ -69,9 +64,9 @@ public class MessageManager {
                 server.getServerManager().sendUpdatedHands();
                 server.getServerManager().broadcastMessage("^" + game.getDeck().size());
 
-                System.out.println("vincitore precdente " + game.getVincitoreManoPrecedente());
-                System.out.println("vincitore getCurrentWinner " + game.getCurrentWinner());
-                System.out.println("vincitore getCurrentTurnIndex " + game.getCurrentTurnIndex());
+//                System.out.println("vincitore precdente " + game.getVincitoreManoPrecedente());
+//                System.out.println("vincitore getCurrentWinner " + game.getCurrentWinner());
+//                System.out.println("vincitore getCurrentTurnIndex " + game.getCurrentTurnIndex());
 
                 //Changing turn
                 if(game.getCardsOnTheGrounds().size() == 1)
@@ -87,7 +82,7 @@ public class MessageManager {
             }
         } catch (Exception e) {
             server.getServerManager().removeUser(user);
-            System.err.println("Error handling user: " + e.getMessage());
+//            System.err.println("Error handling user: " + e.getMessage());
             e.printStackTrace();
         }
     }

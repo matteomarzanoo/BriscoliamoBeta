@@ -66,18 +66,20 @@ public class BriscolaController extends KeyAdapter
             public void mouseReleased(MouseEvent e) {
 
                 try {
-                    draggedCard.setX(e.getX() - dragOffsetX);
-                    draggedCard.setY(e.getY() - dragOffsetY);
-                    if (draggedCard.inPlayArea()) {
-                        playCard(draggedCardIndex);
-                    } else {
-                        gamePanelOffline.updatePlayerCardPositions();
+                    if (draggedCard != null) {
+                        draggedCard.setX(e.getX() - dragOffsetX);
+                        draggedCard.setY(e.getY() - dragOffsetY);
+                        if (draggedCard.inPlayArea()) {
+                            playCard(draggedCardIndex);
+                        } else {
+                            gamePanelOffline.updatePlayerCardPositions();
+                        }
+                        draggedCard = null;
+                        dragOffsetX = 0;
+                        dragOffsetY = 0;
+                        draggedCardIndex = -1;
+                        gamePanelOffline.repaint();
                     }
-                    draggedCard = null;
-                    dragOffsetX = 0;
-                    dragOffsetY = 0;
-                    draggedCardIndex = -1;
-                    gamePanelOffline.repaint();
                 }catch (NullPointerException exception){}
 
             }
@@ -145,9 +147,6 @@ public class BriscolaController extends KeyAdapter
         }
     }
 
-
-    public MouseMotionListener getMouseMotionListener(){return this.mouseMotionListener;}
-    public MouseListener getMouseListener(){return this.mouseListener;}
     
     private void playCard(int index) {
         if ((game.getHandPlayer().size() > index) && game.isMyTurn() && (game.getCardsOnTheGround().size() < 2)) {

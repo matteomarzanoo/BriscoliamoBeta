@@ -11,7 +11,7 @@ public class Frame extends JFrame
     public Frame()
     {
         try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); } catch (Exception e){ e.printStackTrace(); }
-        setTitle("Briscoliamo");
+        setTitle("Briscoliamo!");
         setSize(Settings.FRAME_WIDTH, Settings.FRAME_HEIGHT);
         setIconImage(loadFrameIcon("src/main/resources/images/gameIcon.png"));
 

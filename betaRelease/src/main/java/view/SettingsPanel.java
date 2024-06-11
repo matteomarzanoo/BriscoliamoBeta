@@ -27,21 +27,7 @@ public class SettingsPanel extends JPanel
         sound = Sound.getInstance();
         player = new Player();
         setLayout(new BorderLayout());
-        back();
         addSettings();
-    }
-
-    private void back() {
-        JButton back = new JButton("←");
-        back.setFont(Fonts.getMenuPanel());
-        back.setOpaque(false);
-        back.setContentAreaFilled(false); 
-        back.setBorderPainted(false); 
-        back.setFocusPainted(false); 
-        back.setForeground(Color.WHITE);
-        back.setHorizontalAlignment(SwingConstants.LEFT);
-        back.addMouseListener(controller);
-        add(back, BorderLayout.NORTH);
     }
 
     private void addSettings() {
@@ -54,7 +40,6 @@ public class SettingsPanel extends JPanel
                 }
             }
         };
-        
         intermediate.setLayout(new BoxLayout(intermediate, BoxLayout.X_AXIS));
 
         JPanel left = new JPanel(new GridLayout(3,1));

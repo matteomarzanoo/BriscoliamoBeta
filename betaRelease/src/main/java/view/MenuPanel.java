@@ -27,7 +27,7 @@ public class MenuPanel extends JPanel
     }
 
     public void addTitle() {
-        JLabel label = new JLabel("Briscoliamo", SwingConstants.CENTER);
+        JLabel label = new JLabel("Briscoliamo!", SwingConstants.CENTER);
         label.setFont(Fonts.getLogo());
         label.setForeground(Color.WHITE);
         label.setOpaque(false);

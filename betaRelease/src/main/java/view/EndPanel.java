@@ -60,10 +60,11 @@ public class EndPanel extends JPanel {
         home.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         home.setBounds(Settings.END_WIDTH / 2 - 140, Settings.END_HEIGHT - 65, 120, 40);
         home.setOpaque(false);
+        home.setForeground(Color.WHITE);
         home.setContentAreaFilled(false);
         home.setFocusPainted(false);
         Border one = new LineBorder(gold, 2);
-        Border two = new LineBorder(Color.WHITE, 3);
+        Border two = new LineBorder(Color.BLACK, 3);
         Border union = new CompoundBorder(two,one);
         home.setBorder(union);
         home.addMouseListener(controller);
@@ -74,10 +75,11 @@ public class EndPanel extends JPanel {
         playAgain.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         playAgain.setBounds(Settings.END_WIDTH / 2 + 25, Settings.END_HEIGHT - 65, 120, 40);
         playAgain.setOpaque(false);
+        playAgain.setForeground(Color.WHITE);
         playAgain.setContentAreaFilled(false);
         playAgain.setFocusPainted(false);
         Border one1 = new LineBorder(gold, 2);
-        Border two2 = new LineBorder(Color.WHITE, 3);
+        Border two2 = new LineBorder(Color.BLACK, 3);
         Border union3 = new CompoundBorder(two2,one1);
         playAgain.setBorder(union3);
         playAgain.addMouseListener(controller);

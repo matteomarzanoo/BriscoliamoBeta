@@ -11,7 +11,7 @@ public class GameOnline
     private Card briscola;
     private String scorePlayerOne;
     private String scorePlayerTwo;
-    private boolean isFirstPlayer; //variabile che ci serve per ricordarci chi ha giocato la prima carta
+    private boolean isFirstPlayer;
     private boolean isGameStarted;
     private boolean myTurn;
     private final Random random = new Random();

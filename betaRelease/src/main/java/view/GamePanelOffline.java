@@ -1,6 +1,7 @@
 package view;
 
 import controller.BriscolaController;
+import controller.MainController;
 import model.*;
 import org.example.Settings;
 
@@ -38,7 +39,6 @@ public class GamePanelOffline extends GamePanel {
         } catch (Exception e) {}
 
     }
-
     private void drawBotHand(Graphics2D g2d) {
         for (int i = 0; i < gameOffline.getHandBot().size(); i++) {
             Image cardImage = loadCardImage("/carte/Dorso3.png");

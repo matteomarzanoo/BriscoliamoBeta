@@ -140,8 +140,7 @@ public class GameOffline extends Game {
             cardsOnTheGround.add(currentCard);
             changeTurn();
             return currentCard;
-        }
-        else{
+        } else {
             return null;
         }
     }
